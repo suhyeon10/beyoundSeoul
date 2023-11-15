@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${LOCAL_ENV}
+    username: ${DB_USER}
+    password: ${DB_PASSWD}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
