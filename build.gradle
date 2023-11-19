@@ -46,8 +46,16 @@ dependencies {
     // s3
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.529')
     implementation 'com.amazonaws:aws-java-sdk-s3'
+
+    //junit
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.mockito:mockito-core:4.8.0'
+    testImplementation 'com.h2database:h2'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+
+
+test {
+    useJUnitPlatform()
 }

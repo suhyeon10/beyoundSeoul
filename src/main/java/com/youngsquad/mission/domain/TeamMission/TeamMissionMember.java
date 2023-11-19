@@ -22,6 +22,8 @@ public class TeamMissionMember {
     private Long id;
     @Column(name = "MEMBER_ID")
     private Long memberId;
+    @Column(name = "ROLE")
+    private String role;
     @Column(name = "TRAVEL_ID")
     private Long travelId;
     @ManyToOne
