@@ -76,12 +76,11 @@ public class HomeMissionService {
     }
 
     public List<HomeRes.Mission.DailyMission> getDailyMissionData(long uid, long travelId){
-        LocalDate today = LocalDate.parse("2023-11-10");
+        LocalDate today = LocalDate.now();
         //일일미션수행에서 여행id와, 회원id로 수행중인 미션 찾기
         List<DailyMissionStatus> dailyMissionStatuses = dailyMissionStatusRepo.getDailyMissionStatusesByTravelIdAndUserIdAndStatus(travelId, uid, "PROCEED");
         dailyMissionStatuses.sort((status1, status2) -> status2.getCreateAt().compareTo(status1.getCreateAt()));
 
-        log.info("daily count :: "+ dailyMissionStatuses.size());
         if(dailyMissionStatuses.size()>0){
             List<DailyMissionStatus> todayDailyMissions = dailyMissionStatuses.subList(0,3);
             List<HomeRes.Mission.DailyMission> dailyMissions = todayDailyMissions.stream().map(this::toDailyMission).collect(Collectors.toList());
@@ -95,6 +94,7 @@ public class HomeMissionService {
         return HomeRes.Mission.DailyMission.builder()
                 .title(status.getDailyMission().getName())
                 .id(Math.toIntExact(status.getId()))
+                .status(status.getStatus())
                 .build();
     }
 
