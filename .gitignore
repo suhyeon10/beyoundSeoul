@@ -1,5 +1,5 @@
 ### AWS KEY ###
-src/main/resources/application.yml
+src/main/resources/application-secret.yml
 gradle
 HELP.md
 .gradle
