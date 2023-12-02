@@ -3,6 +3,7 @@ package com.youngsquad.travel.dto;
 import com.youngsquad.travel.domain.MateCode;
 import lombok.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,15 +13,20 @@ import java.time.LocalDateTime;
 @Builder
 public class ViewMateCode {
 
-    private LocalDateTime expiredTime;
+    private long expiredTime;
     private String code;
 
     public static ViewMateCode from(MateCode mateCode){
         return ViewMateCode.builder()
-                .expiredTime(mateCode.getExpireDateTime())
+                .expiredTime(calExpireMinute(mateCode))
                 .code(mateCode.getCode())
                 .build();
     }
+
+    private static long calExpireMinute(MateCode mateCode){
+        return Duration.between(LocalDateTime.now(), mateCode.getExpireDateTime()).toMinutes();
+    }
+
 
 }
 

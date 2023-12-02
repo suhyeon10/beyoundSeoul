@@ -49,12 +49,13 @@ public class HomeTravelService {
     }
 
     private TeamMissionMember getLatestTeamMissionMember(long uid) {
-        return teamMissionMemberRepo.getTopByMemberIdOrderByIdDesc(uid).orElse(null);
+        return teamMissionMemberRepo.findFirstByMemberIdOrderByIdDesc(uid).orElse(null);
     }
 
     public TravelDetail getTravelDetail(long uid){
-        TeamMissionMember teamMissionMember = teamMissionMemberRepo.getTopByMemberIdOrderByIdDesc(uid).orElse(null);
-        return travelDetailRepo.getTopById(teamMissionMember.getTravelId()).orElse(null);
+        TeamMissionMember teamMissionMember = teamMissionMemberRepo.findFirstByMemberIdOrderByIdDesc(uid).orElse(null);
+        log.info("travel id :: "+teamMissionMember.getTravelDetail().getId());
+        return travelDetailRepo.findFirstById(teamMissionMember.getTravelId()).orElse(null);
     }
 
     public String makeTravelDate(LocalDate startDate, LocalDate endDate) {
