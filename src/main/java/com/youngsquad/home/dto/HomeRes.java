@@ -70,6 +70,7 @@ public class HomeRes {
         public static class DailyMission{
             private int id;
             private String title;
+            private String status;
         }
     }
 
