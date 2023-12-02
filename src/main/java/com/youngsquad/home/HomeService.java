@@ -47,7 +47,7 @@ public class HomeService {
                 .profile(ofProfile(user))
                 .travelStatus(homeTravelService.getTravelStatus(uid))
                 .travel(ofTravel(travelDetail))
-                .mission(ofMission(uid, travelId))
+//                .mission(ofMission(uid, travelId))
                 .build();
     }
 

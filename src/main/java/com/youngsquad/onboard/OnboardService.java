@@ -47,7 +47,7 @@ public class OnboardService {
 //                    onboardReq.getTravelStartDate(),
 //                    onboardReq.getTravelEndDate());
             // 3) 공동멤버팀에 리더 데이터 추가
-//            missionService.insertTeamMissionMember(uid, travelDetail);
+            missionService.insertTeamMissionMember(onboardReq.getUid(), travelDetail);
 
             mateCodeService.makeNewMateCode(travelDetail);
         }

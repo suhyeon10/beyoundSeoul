@@ -10,6 +10,6 @@ public interface TeamMissionMemberRepo extends JpaRepository<TeamMissionMember, 
     TeamMissionMember getFirstByTravelIdAndMemberId(long travelId, long memberId);
     TeamMissionMember getTeamMissionMemberById(long id);
     List<TeamMissionMember> getTeamMissionMemberByMemberId(long memberId);
-    Optional<TeamMissionMember> getTopByMemberIdOrderByIdDesc(long memberId);
+    Optional<TeamMissionMember> findFirstByMemberIdOrderByIdDesc(long memberId);
 
 }

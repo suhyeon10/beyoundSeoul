@@ -88,6 +88,7 @@ public class MissionService {
                 .memberId(uid)
                 .travelDetail(travelDetail)
                 .travelId(travelDetail.getId())
+                .role("READER")
                 .build();
         teamMissionMemberRepo.save(teamMissionMember);
         return teamMissionMember;

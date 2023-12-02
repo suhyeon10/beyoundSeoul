@@ -26,6 +26,12 @@ public class MateCodeService {
     private final TeamMissionMemberRepo teamMissionMemberRepo;
     private final TravelDetailRepo travelDetailRepo;
 
+    public ViewMateCode getNewMateCode(long travelId){
+        TravelDetail findTravelDetail = travelDetailRepo.findById(travelId).orElse(null);
+        if(findTravelDetail==null) throw new BusinessException(ErrorCode.TRAVEL_NOT_FOUND);
+        return ViewMateCode.from(makeNewMateCode(findTravelDetail));
+    }
+
     public ViewMateCode viewMateCode(long travelId){
         MateCode mateCode = mateCodeRepo.findFirstByTravelIdOrderByExpireDateTimeDesc(travelId).orElse(null);
         if(mateCode==null) return ViewMateCode.builder().build();
@@ -55,13 +61,14 @@ public class MateCodeService {
         TeamMissionMember savedMember = teamMissionMemberRepo.save(teamMissionMember);
     }
 
-    public void makeNewMateCode(TravelDetail travelDetail){
+    public MateCode makeNewMateCode(TravelDetail travelDetail){
         MateCode mateCode = MateCode.builder()
                 .expireDateTime(ofExpireDateTime())
                 .code(generateRandomCode(6))
                 .travelId(travelDetail.getId())
                 .build();
         mateCodeRepo.save(mateCode);
+        return mateCode;
     }
 
     private LocalDateTime ofExpireDateTime(){

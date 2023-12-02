@@ -31,4 +31,12 @@ public class MateCodeController extends BaseController {
         mateCodeService.registerTeamToTravel(uid, code);
         return success();
     }
+
+    @ApiOperation(
+            value = "메이트 코드 새로 발급받기",
+            notes = "메이트 코드 새로 발급받기"
+    )    @PostMapping(path = "/new")
+    public CommonResult getNewMateCode(@RequestParam int travelId) {
+        return result(mateCodeService.getNewMateCode(travelId));
+    }
 }
