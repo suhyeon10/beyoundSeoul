@@ -4,6 +4,7 @@ import com.youngsquad.mission.service.MissionService;
 import com.youngsquad.onboard.dto.OnboardReq;
 import com.youngsquad.travel.domain.TravelDetail;
 import com.youngsquad.travel.domain.TravelDetailRepo;
+import com.youngsquad.travel.service.MateCodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ public class OnboardService {
 
     private final TravelDetailRepo travelDetailRepo;
     private final MissionService missionService;
+    private final MateCodeService mateCodeService;
     @Transactional
-    public void completeOnboard(long uid, OnboardReq onboardReq){
+    public void completeOnboard(OnboardReq onboardReq){
         // 1) 여행정보 데이터 인서트
         String role = onboardReq.getRole();
 
@@ -28,7 +30,7 @@ public class OnboardService {
             //리더 선택 or 혼자 왔어여
             TravelDetail travelDetail = TravelDetail.builder()
                     .travelWith(onboardReq.getTravelWith())
-                    .readerId(uid)
+                    .readerId((long) onboardReq.getUid())
                     .startDate(onboardReq.getTravelStartDate())
                     .endDate(onboardReq.getTravelEndDate())
                     .transport(onboardReq.getTransport())
@@ -39,13 +41,15 @@ public class OnboardService {
             travelDetailRepo.save(travelDetail);
             // 2) 미션 데이터 생성
             // 여행지에 따라 미션 랜덤 추가
-            missionService.createMission(onboardReq.getDestination(),
-                    travelDetail,
-                    uid,
-                    onboardReq.getTravelStartDate(),
-                    onboardReq.getTravelEndDate());
+//            missionService.createMission(onboardReq.getDestination(),
+//                    travelDetail,
+//                    onboardReq.getUid(),
+//                    onboardReq.getTravelStartDate(),
+//                    onboardReq.getTravelEndDate());
             // 3) 공동멤버팀에 리더 데이터 추가
 //            missionService.insertTeamMissionMember(uid, travelDetail);
+
+            mateCodeService.makeNewMateCode(travelDetail);
         }
 
     }

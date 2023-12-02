@@ -21,8 +21,8 @@ public class MateCode {
     private Long id;
     @Column(name="TRAVEL_ID")
     private Long travelId;
-    @Column(name="MATE_CODE")
-    private String mateCode;
+    @Column(name="CODE")
+    private String code;
     @Column(name="EXPIRE_DATE_TIME")
     private LocalDateTime expireDateTime;
 }

@@ -30,5 +30,12 @@ public class TeamMissionMember {
     @JoinColumn(name = "TRAVEL_DETAIL")
     private TravelDetail travelDetail;
 
-
+    public static TeamMissionMember to(long memberId, TravelDetail travelDetail){
+        return TeamMissionMember.builder()
+                .memberId(memberId)
+                .travelDetail(travelDetail)
+                .travelId(travelDetail.getId())
+                .role("TEAM")
+                .build();
+    }
 }

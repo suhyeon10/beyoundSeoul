@@ -21,7 +21,7 @@ public class OnboardController extends BaseController {
             notes = "온보드 완료 후 호출시 미션 할당"
     )    @PostMapping(path = "/complete")
     public CommonResult completeOnboard(@RequestBody OnboardReq onboardReq) {
-        onboardService.completeOnboard(onboardReq.getUid(), onboardReq);
+        onboardService.completeOnboard(onboardReq);
         return success();
     }
 
