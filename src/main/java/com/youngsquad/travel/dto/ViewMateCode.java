@@ -19,12 +19,12 @@ public class ViewMateCode {
     public static ViewMateCode from(TravelMateCode travelMateCode){
         return ViewMateCode.builder()
                 .expiredTime(calExpireMinute(travelMateCode))
-                .code(travelMateCode.getCode())
+                .code(travelMateCode.getMateCode())
                 .build();
     }
 
     private static long calExpireMinute(TravelMateCode travelMateCode){
-        return Duration.between(LocalDateTime.now(), travelMateCode.getExpireDateTime()).toMinutes();
+        return Duration.between(LocalDateTime.now(), travelMateCode.getExpireTime()).toMinutes();
     }
 
 

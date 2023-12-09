@@ -33,7 +33,7 @@ public class TravelParticipate {
         return TravelParticipate.builder()
                 .teamMember(user)
                 .travel(travel)
-                .teamMemberRole()
+                .teamMemberRole(teamMemberRole)
                 .build();
 
     }

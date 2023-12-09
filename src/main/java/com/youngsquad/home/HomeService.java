@@ -2,30 +2,25 @@ package com.youngsquad.home;
 
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.home.dto.HomeRes;
-import com.youngsquad.travel.domain.Travel;
 import com.youngsquad.user.domain.User;
-import com.youngsquad.user.service.HomeUserService;
+import com.youngsquad.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class HomeService {
 
-    private final HomeUserService homeUserService;
+    private final UserService userService;
     private final S3Service s3Service;
 
 
     public HomeRes viewHome(long uid){
 
         // 0) 유저 프로필 정보 (항상)
-        User user = homeUserService.getUser(uid);
+        User user = userService.findUser(uid);
 
         return null;
     }
