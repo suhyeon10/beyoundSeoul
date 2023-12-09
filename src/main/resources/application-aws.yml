@@ -27,3 +27,5 @@ cloud:
       secretKey: ${AWS_SECRET_KEY}
     s3:
       bucket: ${AWS_BUCKET}
+    role:
+      arn: ${AWS_ROLE_ARN}

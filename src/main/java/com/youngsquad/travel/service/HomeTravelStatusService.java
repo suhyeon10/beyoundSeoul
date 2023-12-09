@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class HomeTravelService {
+public class HomeTravelStatusService {
 
     private final TeamMissionMemberRepo teamMissionMemberRepo;
     private final TravelDetailRepo travelDetailRepo;

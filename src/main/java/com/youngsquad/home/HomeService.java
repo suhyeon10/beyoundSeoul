@@ -2,17 +2,10 @@ package com.youngsquad.home;
 
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.home.dto.HomeRes;
-import com.youngsquad.mission.domain.TeamMission.TeamMissionMember;
-import com.youngsquad.mission.domain.TeamMission.TeamMissionMemberRepo;
 import com.youngsquad.mission.service.HomeMissionService;
-import com.youngsquad.mission.service.MissionService;
-import com.youngsquad.record.domain.TravelRecordRepo;
 import com.youngsquad.travel.domain.TravelDetail;
-import com.youngsquad.travel.domain.TravelDetailRepo;
-import com.youngsquad.travel.service.HomeTravelService;
-import com.youngsquad.travel.service.TravelService;
+import com.youngsquad.travel.service.HomeTravelStatusService;
 import com.youngsquad.user.domain.User;
-import com.youngsquad.user.domain.UserRepo;
 import com.youngsquad.user.service.HomeUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -32,7 +23,7 @@ public class HomeService {
     private final HomeUserService homeUserService;
     private final S3Service s3Service;
     private final HomeMissionService homeMissionService;
-    private final HomeTravelService homeTravelService;
+    private final HomeTravelStatusService homeTravelStatusService;
 
     public HomeRes viewHome(long uid){
 
@@ -40,12 +31,12 @@ public class HomeService {
         User user = homeUserService.getUser(uid);
 
         // 1) 여행 정보        // 2) 미션 정보
-        TravelDetail travelDetail =  homeTravelService.getTravelDetail(uid);
+        TravelDetail travelDetail =  homeTravelStatusService.getTravelDetail(uid);
         long travelId = travelDetail.getId();
 
         return HomeRes.builder()
                 .profile(ofProfile(user))
-                .travelStatus(homeTravelService.getTravelStatus(uid))
+                .travelStatus(homeTravelStatusService.getTravelStatus(uid))
                 .travel(ofTravel(travelDetail))
 //                .mission(ofMission(uid, travelId))
                 .build();
@@ -62,7 +53,7 @@ public class HomeService {
         return HomeRes.Travel.builder()
                 .travelId(Math.toIntExact(travelDetail.getId()))
                 .travelName(travelDetail.getDestination()+" 여행중")
-                .travelDate(homeTravelService.makeTravelDate(travelDetail.getStartDate(), travelDetail.getEndDate()))
+                .travelDate(homeTravelStatusService.makeTravelDate(travelDetail.getStartDate(), travelDetail.getEndDate()))
                 .travelFreinds(new ArrayList<>())
                 .build();
     }
