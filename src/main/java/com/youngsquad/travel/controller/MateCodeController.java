@@ -3,6 +3,9 @@ package com.youngsquad.travel.controller;
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
 import com.youngsquad.travel.service.MateCodeService;
+import com.youngsquad.user.domain.User;
+import com.youngsquad.user.domain.UserStatus;
+import com.youngsquad.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class MateCodeController extends BaseController {
 
     private final MateCodeService mateCodeService;
+    private final UserService userService;
     @ApiOperation(
             value = "메이트 코드 조회",
             notes = "여행 ID로 메이트 코드 조회"
@@ -28,7 +32,8 @@ public class MateCodeController extends BaseController {
             notes = "메이트 코드로 팀원 등록"
     )    @PostMapping(path = "/register")
     public CommonResult registerTeamToTravel(@RequestParam int uid, String code) {
-        mateCodeService.registerTeamToTravel(uid, code);
+        User user = userService.findUser(uid);
+        mateCodeService.registerTeamToTravel(user, code);
         return success();
     }
 

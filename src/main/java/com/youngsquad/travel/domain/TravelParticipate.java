@@ -29,4 +29,12 @@ public class TravelParticipate {
     @Enumerated(EnumType.STRING)
     private TeamMemberRole teamMemberRole;
 
+    public static TravelParticipate from(User user, Travel travel, TeamMemberRole teamMemberRole){
+        return TravelParticipate.builder()
+                .teamMember(user)
+                .travel(travel)
+                .teamMemberRole()
+                .build();
+
+    }
 }

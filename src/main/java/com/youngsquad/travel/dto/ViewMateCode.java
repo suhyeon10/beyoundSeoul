@@ -1,6 +1,6 @@
 package com.youngsquad.travel.dto;
 
-import com.youngsquad.travel.domain.MateCode;
+import com.youngsquad.travel.domain.TravelMateCode;
 import lombok.*;
 
 import java.time.Duration;
@@ -16,15 +16,15 @@ public class ViewMateCode {
     private long expiredTime;
     private String code;
 
-    public static ViewMateCode from(MateCode mateCode){
+    public static ViewMateCode from(TravelMateCode travelMateCode){
         return ViewMateCode.builder()
-                .expiredTime(calExpireMinute(mateCode))
-                .code(mateCode.getCode())
+                .expiredTime(calExpireMinute(travelMateCode))
+                .code(travelMateCode.getCode())
                 .build();
     }
 
-    private static long calExpireMinute(MateCode mateCode){
-        return Duration.between(LocalDateTime.now(), mateCode.getExpireDateTime()).toMinutes();
+    private static long calExpireMinute(TravelMateCode travelMateCode){
+        return Duration.between(LocalDateTime.now(), travelMateCode.getExpireDateTime()).toMinutes();
     }
 
 

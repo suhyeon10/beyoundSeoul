@@ -2,13 +2,10 @@ package com.youngsquad.travel.service;
 
 import com.youngsquad.common.exception.BusinessException;
 import com.youngsquad.common.exception.ErrorCode;
-import com.youngsquad.mission.domain.TeamMission.TeamMissionMember;
-import com.youngsquad.mission.domain.TeamMission.TeamMissionMemberRepo;
-import com.youngsquad.travel.domain.MateCode;
-import com.youngsquad.travel.domain.MateCodeRepo;
-import com.youngsquad.travel.domain.TravelDetail;
-import com.youngsquad.travel.domain.TravelDetailRepo;
+import com.youngsquad.travel.domain.*;
+
 import com.youngsquad.travel.dto.ViewMateCode;
+import com.youngsquad.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,52 +20,52 @@ import java.util.Random;
 public class MateCodeService {
 
     private final MateCodeRepo mateCodeRepo;
-    private final TeamMissionMemberRepo teamMissionMemberRepo;
-    private final TravelDetailRepo travelDetailRepo;
+    private final TravelRepo travelRepo;
+    private final TravelParticipateRepo travelParticipateRepo;
 
     public ViewMateCode getNewMateCode(long travelId){
-        TravelDetail findTravelDetail = travelDetailRepo.findById(travelId).orElse(null);
+        Travel findTravelDetail = travelRepo.findById(travelId).orElse(null);
         if(findTravelDetail==null) throw new BusinessException(ErrorCode.TRAVEL_NOT_FOUND);
         return ViewMateCode.from(makeNewMateCode(findTravelDetail));
     }
 
     public ViewMateCode viewMateCode(long travelId){
-        MateCode mateCode = mateCodeRepo.findFirstByTravelIdOrderByExpireDateTimeDesc(travelId).orElse(null);
-        if(mateCode==null) return ViewMateCode.builder().build();
-        return ViewMateCode.from(mateCode);
+        TravelMateCode travelMateCode = mateCodeRepo.findFirstByTravelIdOrderByExpireDateTimeDesc(travelId).orElse(null);
+        if(travelMateCode ==null) return ViewMateCode.builder().build();
+        return ViewMateCode.from(travelMateCode);
     }
 
     @Transactional
-    public void registerTeamToTravel(long uid, String code){
-        MateCode newMateCode = mateCodeRepo.findFirstByCodeOrderByExpireDateTimeDesc(code);
-        if( newMateCode==null || isMateCodeExpire(newMateCode)) throw new BusinessException(ErrorCode.NOT_FOUND);
-        else registerTeamMate(uid, newMateCode);
+    public void registerTeamToTravel(User user, String code){
+        TravelMateCode newTravelMateCode = mateCodeRepo.findFirstByCodeOrderByExpireDateTimeDesc(code);
+        if( newTravelMateCode ==null || isMateCodeExpire(newTravelMateCode)) throw new BusinessException(ErrorCode.NOT_FOUND);
+        else registerTeamMate(user, newTravelMateCode);
     }
 
-    public boolean isMateCodeExpire(MateCode mateCode){
-        if(LocalDateTime.now().isAfter(mateCode.getExpireDateTime())) return true;
+    public boolean isMateCodeExpire(TravelMateCode travelMateCode){
+        if(LocalDateTime.now().isAfter(travelMateCode.getExpireTime())) return true;
         else return false;
     }
 
-    public void registerTeamMate(long memberId, MateCode mateCode){
-        TravelDetail findTravelDetail = travelDetailRepo.findById(mateCode.getTravelId()).orElse(null);
+    public void registerTeamMate(User user, TravelMateCode travelMateCode){
+        Travel findTravelDetail = travelRepo.findById(travelMateCode.getTravel().getId()).orElse(null);
         if(findTravelDetail == null) throw new BusinessException(ErrorCode.TRAVEL_NOT_FOUND);
-        saveTeamMissionMember(findTravelDetail, memberId);
+        saveTeamMissionMember(findTravelDetail, user);
     }
 
-    public void saveTeamMissionMember(TravelDetail travelDetail, long memberId) {
-        TeamMissionMember teamMissionMember = TeamMissionMember.to(memberId, travelDetail);
-        TeamMissionMember savedMember = teamMissionMemberRepo.save(teamMissionMember);
+    public void saveTeamMissionMember(Travel travelDetail, User user) {
+        TravelParticipate travelParticipate = TravelParticipate.from(user, travelDetail, TeamMemberRole.MEMBER);
+        travelParticipateRepo.save(travelParticipate);
     }
 
-    public MateCode makeNewMateCode(TravelDetail travelDetail){
-        MateCode mateCode = MateCode.builder()
-                .expireDateTime(ofExpireDateTime())
-                .code(generateRandomCode(6))
-                .travelId(travelDetail.getId())
+    public TravelMateCode makeNewMateCode(Travel travelDetail){
+        TravelMateCode travelMateCode = TravelMateCode.builder()
+                .expireTime(ofExpireDateTime())
+                .mateCode(generateRandomCode(6))
+                .travel(travelDetail)
                 .build();
-        mateCodeRepo.save(mateCode);
-        return mateCode;
+        mateCodeRepo.save(travelMateCode);
+        return travelMateCode;
     }
 
     private LocalDateTime ofExpireDateTime(){

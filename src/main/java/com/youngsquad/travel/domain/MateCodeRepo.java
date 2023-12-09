@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface MateCodeRepo extends JpaRepository<MateCode, Long> {
+public interface MateCodeRepo extends JpaRepository<TravelMateCode, Long> {
 
-    MateCode findFirstByCodeOrderByExpireDateTimeDesc(String code);
-    Optional<MateCode> findFirstByTravelIdOrderByExpireDateTimeDesc(long travelId);
+    TravelMateCode findFirstByCodeOrderByExpireDateTimeDesc(String code);
+    Optional<TravelMateCode> findFirstByTravelIdOrderByExpireDateTimeDesc(long travelId);
 }

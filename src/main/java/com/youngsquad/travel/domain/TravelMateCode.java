@@ -13,16 +13,17 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "MATE_CODE")
-public class MateCode {
+@Table(name = "TRAVEL_MATE_CODE")
+public class TravelMateCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="MATE_CODE_ID")
+    @Column(name="TRAVEL_MATE_CODE_ID")
     private Long id;
-    @Column(name="TRAVEL_ID")
-    private Long travelId;
-    @Column(name="CODE")
-    private String code;
+    @ManyToOne
+    @JoinColumn(name="TRAVEL_ID")
+    private Travel travel;
+    @Column(name="MATE_CODE")
+    private String mateCode;
     @Column(name="EXPIRE_DATE_TIME")
-    private LocalDateTime expireDateTime;
+    private LocalDateTime expireTime;
 }
