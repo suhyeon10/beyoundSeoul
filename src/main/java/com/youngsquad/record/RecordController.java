@@ -17,13 +17,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class RecordController extends BaseController {
 
-    private final RecordService recordService;
     @ApiOperation(
             value = "미션 기록 생성하기",
             notes = "미션 기록 생성하기"
     )    @PostMapping(path = "/create")
     public CommonResult createRecord(CreateRecordReq createRecordReq) throws IOException {
-        recordService.createRecord(createRecordReq.getUid(), createRecordReq);
         return success();
     }
 
@@ -33,6 +31,6 @@ public class RecordController extends BaseController {
     )    @PostMapping(path = "/view")
     public CommonResult viewRecord(@RequestParam int uid) throws IOException {
 
-        return result(recordService.viewRecord(uid));
+        return success();
     }
 }

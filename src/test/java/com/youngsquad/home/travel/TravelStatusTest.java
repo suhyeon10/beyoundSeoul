@@ -3,7 +3,7 @@ package com.youngsquad.home.travel;
 import com.youngsquad.common.exception.BusinessException;
 import com.youngsquad.common.exception.ErrorCode;
 import com.youngsquad.mission.domain.TeamMission.TeamMissionMember;
-import com.youngsquad.travel.domain.TravelDetail;
+import com.youngsquad.travel.domain.Travel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -32,8 +32,8 @@ public class TravelStatusTest {
 
 
         TeamMissionMember teamMissionMember = TeamMissionMember.builder()
-                .travelDetail(
-                        TravelDetail.builder()
+                .travel(
+                        Travel.builder()
                                 .startDate(start)
                                 .endDate(end)
                                 .build()
@@ -60,17 +60,17 @@ public class TravelStatusTest {
     //여행이 끝났을때
     private Boolean isAfterTravel(TeamMissionMember teamMissionMember){
         //  여행 끝 < 오늘
-        return getToday().isAfter(teamMissionMember.getTravelDetail().getEndDate());
+        return getToday().isAfter(teamMissionMember.getTravel().getEndDate());
     }
 
     //여행이 시작하지 않았을 때
     // 오늘 < 여행 시작
     private Boolean isBeforeTravelStart(TeamMissionMember teamMissionMember){
-        return getToday().isBefore(teamMissionMember.getTravelDetail().getStartDate());
+        return getToday().isBefore(teamMissionMember.getTravel().getStartDate());
     }
     //여행이 진행중인 경우
     private Boolean isDuringTravel(TeamMissionMember teamMissionMember){
-        return !getToday().isBefore(teamMissionMember.getTravelDetail().getStartDate()) && !getToday().isAfter(teamMissionMember.getTravelDetail().getEndDate());
+        return !getToday().isBefore(teamMissionMember.getTravel().getStartDate()) && !getToday().isAfter(teamMissionMember.getTravel().getEndDate());
     }
 
     private LocalDate getToday(){
@@ -87,6 +87,6 @@ public class TravelStatusTest {
     }
 
     private Boolean isChkNullOrBeforeTravel(TeamMissionMember teamMissionMember){
-        return teamMissionMember == null || isBeforeTravel(teamMissionMember.getTravelDetail().getEndDate());
+        return teamMissionMember == null || isBeforeTravel(teamMissionMember.getTravel().getEndDate());
     }
 }

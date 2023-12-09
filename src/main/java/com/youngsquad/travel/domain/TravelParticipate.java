@@ -13,18 +13,20 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TRAVEL_PREFER")
-public class TravelPrefer {
-
+@Table(name = "TRAVEL_PARTICIPATE")
+public class TravelParticipate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TRAVEL_PREFER_ID")
+    @Column(name = "TRAVEL_PARTICIPATE_ID")
     private Long id;
     @ManyToOne
+    @JoinColumn(name = "TRAVEL_ID")
+    private Travel travel;
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User user;
-    @Column(name = "MISSION_COUNT")
-    private Integer missionCount;
-    @Column(name = "TRAVEL_CATEGORY")
-    private String travelCategory;
+    private User teamMember;
+    @Column(name = "ROLE")
+    @Enumerated(EnumType.STRING)
+    private TeamMemberRole teamMemberRole;
+
 }

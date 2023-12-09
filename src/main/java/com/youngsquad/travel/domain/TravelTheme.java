@@ -1,4 +1,4 @@
-package com.youngsquad.mission.domain.TeamMission;
+package com.youngsquad.travel.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +12,14 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TEAM_MISSION")
-public class TeamMission {
+@Table(name = "TRAVEL_THEME")
+public class TravelTheme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TEAM_MISSION_ID")
+    @Column(name = "TRAVEL_THEME_ID")
     private Long id;
-    @Column(name = "TOTAL_NUM")
-    private Integer totalNum;
-    @Column(name = "TOTAL_FULL")
-    private Character totalFull;
+    @Column(name = "NAME")
+    private String name;
+    @Column(name = "ROUTE")
+    private String route;
 }

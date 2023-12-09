@@ -1,5 +1,6 @@
 package com.youngsquad.travel.domain;
 
+import com.youngsquad.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,24 +14,28 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TRAVEL_DETAIL")
-public class TravelDetail {
+@Table(name = "TRAVEL")
+public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TRAVEL_DETAIL_ID")
+    @Column(name = "TRAVEL_ID")
     private Long id;
-    @Column(name = "READER_ID")
-    private Long readerId;
+    @ManyToOne
+    @JoinColumn(name = "TRAVEL_THEME_ID")
+    private TravelTheme travelTheme;
+    @ManyToOne
+    @JoinColumn(name = "READER_ID")
+    private User reader;
     @Column(name = "DESTINATION")
     private String destination;
     @Column(name = "START_DATE")
     private LocalDate startDate;
     @Column(name = "END_DATE")
     private LocalDate endDate;
+    @Column(name = "PEOPLE_NUM")
+    private String peopleNum;
     @Column(name = "TRAVEL_WITH")
     private String travelWith;
     @Column(name = "TITLE")
     private String title;
-    @Column(name = "TRANSPORT")
-    private String transport;
 }

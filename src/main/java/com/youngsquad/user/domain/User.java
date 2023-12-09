@@ -3,6 +3,7 @@ package com.youngsquad.user.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -25,8 +26,15 @@ public class User {
     private String lang;
     @Column(name = "AGE")
     private String age;
+    @Column(name = "BIRTH")
+    private String birth;
     @Column(name = "IMAGE")
     private String image;
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+    @Column(name = "CREATE_DATE")
+    private LocalDateTime create_date;
 
 }
 

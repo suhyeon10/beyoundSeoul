@@ -1,30 +1,30 @@
 package com.youngsquad.mission.domain;
 
-import com.youngsquad.travel.domain.TravelDetail;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "MISSION_DIVISION")
-public class MissionDivision {
+@Table(name = "MISSION_STATUS")
+public class MissionStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MISSION_DIVISION_ID")
+    @Column(name = "MISSION_STATUS_ID")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "MISSION_ID")
     private Mission mission;
-    @ManyToOne
-    @JoinColumn(name = "TRAVEL_DETAIL_ID")
-    private TravelDetail travelDetail;
-    @Column(name = "STATUS")
-    private String status;
+    @Column(name = "MISSION_STATUS")
+    @Enumerated(EnumType.STRING)
+    private MissionStatusType missionStatusType;
+    @Column(name = "MODIFY_DATE")
+    private LocalDateTime modifyDate;
 }
