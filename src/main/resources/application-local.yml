@@ -17,6 +17,18 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: https://my-auth-server.com
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_SECRET_PASSWD}
+            scope: ${GOOGLE_SCOPE}
 cloud:
   aws:
     region:
@@ -26,3 +38,4 @@ cloud:
       secretKey: ${AWS_SECRET_KEY}
     s3:
       bucket: ${AWS_BUCKET}
+

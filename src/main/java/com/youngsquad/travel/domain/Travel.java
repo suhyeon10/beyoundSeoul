@@ -34,8 +34,9 @@ public class Travel {
     private LocalDate endDate;
     @Column(name = "PEOPLE_NUM")
     private String peopleNum;
+    @Enumerated(EnumType.STRING)
     @Column(name = "TRAVEL_WITH")
-    private String travelWith;
+    private TravelWithType travelWith;
     @Column(name = "TITLE")
     private String title;
 }

@@ -12,12 +12,16 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_device")
-public class UserDevice {
+@Table(name = "social_login")
+public class SocialLogin {
     @Id
-    @Column(name = "uuid")
-    private Long uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "social_login_id")
+    private Long id;
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
+    private String idToken;
+    private String sns;
+
 }

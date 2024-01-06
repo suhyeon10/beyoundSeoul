@@ -18,10 +18,8 @@ public class HomeService {
 
 
     public HomeRes viewHome(long uid){
-
         // 0) 유저 프로필 정보 (항상)
         User user = userService.findUser(uid);
-
         return null;
     }
 
@@ -31,10 +29,4 @@ public class HomeService {
                 .userImage(s3Service.getDownloadPresignedURL(user.getImage()))
                 .build();
     }
-
-
-
-
-
-
 }

@@ -1,12 +1,11 @@
 package com.youngsquad.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-@Getter
-@Builder
-@AllArgsConstructor
-public class LoginRequest {
-    private String email;
 
+import org.springframework.web.multipart.MultipartFile;
+
+public record LoginRequest (String email,
+                            String nickName,
+                            MultipartFile image,
+                            String idToken,
+                            String sns){
 }

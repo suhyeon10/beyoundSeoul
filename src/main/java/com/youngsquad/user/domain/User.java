@@ -3,6 +3,7 @@ package com.youngsquad.user.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,31 +11,26 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER")
+@Table(name = "users")
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long id;
-    @Column(name = "EMAIL")
     private String email;
-    @Column(name = "SEX")
     private String sex;
-    @Column(name = "NICKNAME")
     private String nickName;
-    @Column(name = "LANG")
-    private String lang;
-    @Column(name = "AGE")
-    private String age;
-    @Column(name = "BIRTH")
-    private String birth;
-    @Column(name = "IMAGE")
+    private LocalDate birth;
     private String image;
-    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private UserStatus status;
-    @Column(name = "CREATE_DATE")
-    private LocalDateTime create_date;
+    private LocalDateTime createDate;
+
+    public void updateUserProfile(LocalDate birth, String sex) {
+        // 유저 정보 업데이트 로직
+        this.birth = birth;
+        this.sex = sex;
+    }
 
 }
 
