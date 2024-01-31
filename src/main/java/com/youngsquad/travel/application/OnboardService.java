@@ -1,7 +1,7 @@
-package com.youngsquad.onboard;
+package com.youngsquad.travel.application;
 
-import com.youngsquad.onboard.dto.OnboardReq;
-import com.youngsquad.travel.domain.TravelRepo;
+import com.youngsquad.travel.presentation.request.OnboardRequest;
+import com.youngsquad.travel.domain.service.TravelRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,9 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class OnboardService {
 
-    private final TravelRepo travelRepo;
+    private final TravelRepository travelRepository;
     @Transactional
-    public void completeOnboard(OnboardReq onboardReq){
+    public void completeOnboard(OnboardRequest onboardReq){
         // 1) 여행정보 데이터 인서트
         String role = onboardReq.getRole();
 

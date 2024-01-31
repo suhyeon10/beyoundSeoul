@@ -1,9 +1,8 @@
-package com.youngsquad.record;
+package com.youngsquad.record.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
-import com.youngsquad.onboard.dto.OnboardReq;
-import com.youngsquad.record.dto.CreateRecordReq;
+import com.youngsquad.record.presentation.request.CreateRecordRequest;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,7 @@ public class RecordController extends BaseController {
             value = "미션 기록 생성하기",
         notes = "미션 기록 생성하기"
     )    @PostMapping(path = "/create")
-        public CommonResult createRecord(CreateRecordReq createRecordReq) throws IOException {
+        public CommonResult createRecord(CreateRecordRequest createRecordReq) throws IOException {
             return success();
     }
 

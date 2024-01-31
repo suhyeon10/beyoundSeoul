@@ -1,9 +1,9 @@
-package com.youngsquad.travel.service;
+package com.youngsquad.travel.application.matecode;
 
 import com.youngsquad.travel.domain.model.TeamMemberRole;
 import com.youngsquad.travel.domain.model.Travel;
 import com.youngsquad.travel.domain.model.TravelParticipate;
-import com.youngsquad.travel.domain.TravelParticipateRepo;
+import com.youngsquad.travel.domain.service.TravelParticipateRepository;
 import com.youngsquad.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TravelParticipateService {
-    private final TravelParticipateRepo travelParticipateRepo;
+    private final TravelParticipateRepository travelParticipateRepository;
     public void saveTeamMissionMember(Travel travelDetail, User user) {
         TravelParticipate travelParticipate = TravelParticipate.from(user, travelDetail, TeamMemberRole.MEMBER);
-        travelParticipateRepo.save(travelParticipate);
+        travelParticipateRepository.save(travelParticipate);
     }
 }

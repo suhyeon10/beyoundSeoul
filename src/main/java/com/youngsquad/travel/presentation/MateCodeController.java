@@ -1,10 +1,9 @@
-package com.youngsquad.travel.controller;
+package com.youngsquad.travel.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
-import com.youngsquad.travel.service.MateCodeService;
+import com.youngsquad.travel.application.matecode.MateCodeService;
 import com.youngsquad.user.domain.User;
-import com.youngsquad.user.domain.UserStatus;
 import com.youngsquad.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

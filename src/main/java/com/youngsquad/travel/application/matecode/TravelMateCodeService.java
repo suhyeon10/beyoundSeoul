@@ -1,7 +1,7 @@
-package com.youngsquad.travel.service;
+package com.youngsquad.travel.application.matecode;
 
 import com.youngsquad.travel.domain.model.TravelMateCode;
-import com.youngsquad.travel.domain.TravelMateCodeRepo;
+import com.youngsquad.travel.domain.service.TravelMateCodeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TravelMateCodeService {
 
-    private final TravelMateCodeRepo travelMateCodeRepo;
+    private final TravelMateCodeRepository travelMateCodeRepository;
     public TravelMateCode findLatestTravelMateCode(long travelId){
-        return travelMateCodeRepo.findFirstByTravelIdOrderByExpireTimeDesc(travelId).orElse(null);
+        return travelMateCodeRepository.findFirstByTravelIdOrderByExpireTimeDesc(travelId).orElse(null);
     }
     public TravelMateCode findLatestTravelMateCodeByCode(String code){
-        return travelMateCodeRepo.findFirstByMateCodeOrderByExpireTimeDesc(code);
+        return travelMateCodeRepository.findFirstByMateCodeOrderByExpireTimeDesc(code);
     }
     public void save(TravelMateCode travelMateCode){
-        travelMateCodeRepo.save(travelMateCode);
+        travelMateCodeRepository.save(travelMateCode);
     }
 }

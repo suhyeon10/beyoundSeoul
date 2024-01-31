@@ -1,4 +1,4 @@
-package com.youngsquad.onboard.dto;
+package com.youngsquad.travel.presentation.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OnboardReq {
+public class OnboardRequest {
     private String age;
     private String birth;
     private String lang;

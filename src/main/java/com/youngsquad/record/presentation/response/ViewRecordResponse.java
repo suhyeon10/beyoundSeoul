@@ -1,4 +1,4 @@
-package com.youngsquad.record.dto;
+package com.youngsquad.record.presentation.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-public class ViewRecordRes {
+public class ViewRecordResponse {
     private List<Travel> travels;
     @Getter
     @Builder

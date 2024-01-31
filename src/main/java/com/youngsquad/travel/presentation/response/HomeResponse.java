@@ -1,4 +1,4 @@
-package com.youngsquad.home.dto;
+package com.youngsquad.travel.presentation.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-public class HomeRes {
+public class HomeResponse {
     private Profile profile;
     private String travelStatus;
     private Travel travel;

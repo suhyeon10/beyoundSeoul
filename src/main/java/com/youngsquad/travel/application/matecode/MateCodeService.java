@@ -1,11 +1,12 @@
-package com.youngsquad.travel.service;
+package com.youngsquad.travel.application.matecode;
 
 import com.youngsquad.common.exception.BusinessException;
 import com.youngsquad.common.exception.ErrorCode;
 
+import com.youngsquad.travel.application.TravelService;
 import com.youngsquad.travel.domain.model.Travel;
 import com.youngsquad.travel.domain.model.TravelMateCode;
-import com.youngsquad.travel.dto.ViewMateCode;
+import com.youngsquad.travel.presentation.response.ViewMateCodeResponse;
 import com.youngsquad.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +24,16 @@ public class MateCodeService {
     private final TravelMateCodeService travelMateCodeService;
     private final TravelParticipateService travelParticipateService;
 
-    public ViewMateCode getNewMateCode(long travelId){
+    public ViewMateCodeResponse getNewMateCode(long travelId){
         Travel findTravelDetail = travelService.findTravel(travelId);
         if(findTravelDetail==null) throw new BusinessException(ErrorCode.TRAVEL_NOT_FOUND);
-        return ViewMateCode.from(makeNewMateCode(findTravelDetail));
+        return ViewMateCodeResponse.from(makeNewMateCode(findTravelDetail));
     }
 
-    public ViewMateCode viewMateCode(long travelId){
+    public ViewMateCodeResponse viewMateCode(long travelId){
         TravelMateCode travelMateCode = travelMateCodeService.findLatestTravelMateCode(travelId);
-        if(travelMateCode ==null) return ViewMateCode.builder().build();
-        return ViewMateCode.from(travelMateCode);
+        if(travelMateCode ==null) return ViewMateCodeResponse.builder().build();
+        return ViewMateCodeResponse.from(travelMateCode);
     }
 
     @Transactional

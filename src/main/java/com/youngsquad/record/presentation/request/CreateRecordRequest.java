@@ -1,4 +1,4 @@
-package com.youngsquad.record.dto;
+package com.youngsquad.record.presentation.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Builder
 @AllArgsConstructor
-public class CreateRecordReq {
+public class CreateRecordRequest {
     private long uid;
     private int missionId;
     private String missionType;
