@@ -1,7 +1,7 @@
 package com.youngsquad.mission.domain;
 
-import com.youngsquad.travel.domain.Travel;
-import com.youngsquad.travel.domain.TravelMissionSample;
+import com.youngsquad.travel.domain.model.Travel;
+import com.youngsquad.travel.domain.model.TravelMissionSample;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

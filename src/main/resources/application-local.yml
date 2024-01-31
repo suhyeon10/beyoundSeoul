@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     url: ${LOCAL_ENV}
     username: ${DB_USER}
-    password: ${DB_PASSWD}
+    password: ${LOCAL_DB_PASSWD}
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -17,6 +17,18 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: https://my-auth-server.com
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_SECRET_PASSWD}
+            scope: ${GOOGLE_SCOPE}
 cloud:
   aws:
     region:
@@ -26,3 +38,4 @@ cloud:
       secretKey: ${AWS_SECRET_KEY}
     s3:
       bucket: ${AWS_BUCKET}
+
