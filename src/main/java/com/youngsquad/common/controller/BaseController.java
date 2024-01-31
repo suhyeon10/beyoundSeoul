@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -17,10 +19,7 @@ public class BaseController {
     {
         return responseService.getSuccessResult();
     }
-    public CommonResult result(Object data)
-    {
+    public CommonResult result(Object data) {
         return responseService.getSingleResult(data);
     }
-
-
 }

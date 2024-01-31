@@ -4,7 +4,7 @@
 //import com.youngsquad.common.exception.ErrorCode;
 //import com.youngsquad.mission.domain.TeamMission.TeamMissionMember;
 //import com.youngsquad.mission.domain.TeamMission.TeamMissionMemberRepo;
-//import com.youngsquad.travel.domain.TravelMateCode;
+//import com.youngsquad.travel.domain.model.TravelMateCode;
 //import com.youngsquad.travel.domain.MateCodeRepo;
 //import com.youngsquad.travel.domain.TravelDetail;
 //import com.youngsquad.travel.domain.TravelDetailRepo;

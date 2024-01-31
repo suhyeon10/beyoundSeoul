@@ -1,6 +1,6 @@
 package com.youngsquad.travel.service;
 
-import com.youngsquad.travel.domain.TravelMateCode;
+import com.youngsquad.travel.domain.model.TravelMateCode;
 import com.youngsquad.travel.domain.TravelMateCodeRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

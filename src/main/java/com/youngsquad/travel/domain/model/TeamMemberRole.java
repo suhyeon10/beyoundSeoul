@@ -1,4 +1,4 @@
-package com.youngsquad.travel.domain;
+package com.youngsquad.travel.domain.model;
 
 public enum TeamMemberRole {
 

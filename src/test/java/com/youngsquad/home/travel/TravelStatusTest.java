@@ -3,7 +3,7 @@
 //import com.youngsquad.common.exception.BusinessException;
 //import com.youngsquad.common.exception.ErrorCode;
 //import com.youngsquad.mission.domain.TeamMission.TeamMissionMember;
-//import com.youngsquad.travel.domain.Travel;
+//import com.youngsquad.travel.domain.model.Travel;
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

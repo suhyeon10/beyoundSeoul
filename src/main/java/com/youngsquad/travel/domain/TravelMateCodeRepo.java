@@ -1,5 +1,6 @@
 package com.youngsquad.travel.domain;
 
+import com.youngsquad.travel.domain.model.TravelMateCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

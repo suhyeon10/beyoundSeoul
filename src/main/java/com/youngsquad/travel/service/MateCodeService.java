@@ -2,8 +2,9 @@ package com.youngsquad.travel.service;
 
 import com.youngsquad.common.exception.BusinessException;
 import com.youngsquad.common.exception.ErrorCode;
-import com.youngsquad.travel.domain.*;
 
+import com.youngsquad.travel.domain.model.Travel;
+import com.youngsquad.travel.domain.model.TravelMateCode;
 import com.youngsquad.travel.dto.ViewMateCode;
 import com.youngsquad.user.domain.User;
 import lombok.RequiredArgsConstructor;

@@ -23,6 +23,7 @@ public class OnboardController extends BaseController {
     public CommonResult completeOnboard(@RequestBody OnboardReq onboardReq) {
         onboardService.completeOnboard(onboardReq);
         return success();
+
     }
 
 }

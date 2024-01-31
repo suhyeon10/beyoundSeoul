@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     url: ${LOCAL_ENV}
     username: ${DB_USER}
-    password: ${DB_PASSWD}
+    password: ${LOCAL_DB_PASSWD}
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

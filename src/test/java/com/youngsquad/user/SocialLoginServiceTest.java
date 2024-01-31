@@ -88,8 +88,6 @@ public class SocialLoginServiceTest {
      */
     @Test
     public void uploadProfileImage() throws IOException {
-
-
         MultipartFile imageFile = createMockMultipartFile();
         String s3Key = s3Service.upload(imageFile, "profile");
 

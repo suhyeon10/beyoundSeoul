@@ -1,8 +1,8 @@
 package com.youngsquad.travel.service;
 
-import com.youngsquad.travel.domain.TeamMemberRole;
-import com.youngsquad.travel.domain.Travel;
-import com.youngsquad.travel.domain.TravelParticipate;
+import com.youngsquad.travel.domain.model.TeamMemberRole;
+import com.youngsquad.travel.domain.model.Travel;
+import com.youngsquad.travel.domain.model.TravelParticipate;
 import com.youngsquad.travel.domain.TravelParticipateRepo;
 import com.youngsquad.user.domain.User;
 import lombok.RequiredArgsConstructor;

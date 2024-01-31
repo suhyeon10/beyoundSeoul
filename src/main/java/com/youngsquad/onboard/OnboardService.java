@@ -1,7 +1,6 @@
 package com.youngsquad.onboard;
 
 import com.youngsquad.onboard.dto.OnboardReq;
-import com.youngsquad.travel.domain.Travel;
 import com.youngsquad.travel.domain.TravelRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

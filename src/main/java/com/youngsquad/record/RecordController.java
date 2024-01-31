@@ -19,10 +19,10 @@ public class RecordController extends BaseController {
 
     @ApiOperation(
             value = "미션 기록 생성하기",
-            notes = "미션 기록 생성하기"
+        notes = "미션 기록 생성하기"
     )    @PostMapping(path = "/create")
-    public CommonResult createRecord(CreateRecordReq createRecordReq) throws IOException {
-        return success();
+        public CommonResult createRecord(CreateRecordReq createRecordReq) throws IOException {
+            return success();
     }
 
     @ApiOperation(

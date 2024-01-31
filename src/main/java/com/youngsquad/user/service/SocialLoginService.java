@@ -2,6 +2,7 @@ package com.youngsquad.user.service;
 
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.user.domain.*;
+import com.youngsquad.user.dto.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,14 +19,17 @@ public class SocialLoginService {
     private final UserRepo userRepo;
     private final SocialLoginRepo socialLoginRepo;
     private final S3Service s3Service;
-
     private static final String DEFAULT_IMAGE_ROUTE = "basic/profile_basic.png";
 
     @Transactional
-    public User login(String email, String nickName, MultipartFile image, String idToken, String sns) throws IOException {
+    public LoginResponse login(String email, String nickName, MultipartFile image, String idToken, String sns) throws IOException {
+        String registerYN = "N";
         User user = userRepo.findByEmail(email).orElse(null);
-        if(user == null) user = createUser(email, nickName, image, idToken, sns);
-        return user;
+        if(user == null) {
+            user = createUser(email, nickName, image, idToken, sns);
+            registerYN = "Y";
+        }
+        return LoginResponse.makeResponse(user, registerYN);
     }
 
     public User createUser(String email, String nickName, MultipartFile image, String idToken, String sns) throws IOException {

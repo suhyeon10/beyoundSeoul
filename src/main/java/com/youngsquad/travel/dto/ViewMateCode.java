@@ -1,6 +1,6 @@
 package com.youngsquad.travel.dto;
 
-import com.youngsquad.travel.domain.TravelMateCode;
+import com.youngsquad.travel.domain.model.TravelMateCode;
 import lombok.*;
 
 import java.time.Duration;
