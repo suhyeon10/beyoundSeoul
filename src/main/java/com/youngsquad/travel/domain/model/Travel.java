@@ -1,5 +1,6 @@
 package com.youngsquad.travel.domain.model;
 
+import com.youngsquad.travel.presentation.request.OnboardRequest;
 import com.youngsquad.user.domain.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,12 +21,10 @@ public class Travel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TRAVEL_ID")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "TRAVEL_THEME_ID")
-    private TravelTheme travelTheme;
-    @ManyToOne
-    @JoinColumn(name = "READER_ID")
-    private User reader;
+    @Column(name = "TRAVEL_THEME_ID")
+    private long travelTheme;
+    @Column(name = "READER_ID")
+    private long reader;
     @Column(name = "DESTINATION")
     private String destination;
     @Column(name = "START_DATE")
@@ -39,4 +38,16 @@ public class Travel {
     private TravelWithType travelWith;
     @Column(name = "TITLE")
     private String title;
+
+    public static Travel makeEntity(String destination, LocalDate endDate, LocalDate startDate, long uid, TravelWithType travelWith, String title, long themeId){
+        return Travel.builder()
+                .destination(destination)
+                .endDate(endDate)
+                .startDate(startDate)
+                .reader(uid)
+                .travelWith(travelWith)
+                .title(title)
+                .travelTheme(themeId)
+                .build();
+    }
 }

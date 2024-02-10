@@ -29,4 +29,13 @@ public class Mission {
     private TravelMissionSample travelMissionSample;
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;
+
+    public static Mission makeEntity(Travel travel, TravelMissionSample travelMissionSample){
+        return Mission.builder()
+                .createDate(LocalDateTime.now())
+                .travel(travel)
+                .travelMissionSample(travelMissionSample)
+                .build();
+    }
+
 }

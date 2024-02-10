@@ -1,6 +1,7 @@
 package com.youngsquad.user.domain.model;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
 @Table(name = "users")
 public class User {
 
