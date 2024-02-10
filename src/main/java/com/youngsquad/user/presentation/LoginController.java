@@ -1,17 +1,14 @@
-package com.youngsquad.user.controller;
+package com.youngsquad.user.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
-import com.youngsquad.user.domain.User;
-import com.youngsquad.user.dto.LoginRequest;
-import com.youngsquad.user.dto.LoginResponse;
-import com.youngsquad.user.dto.UserCreateRequest;
-import com.youngsquad.user.service.SocialLoginService;
+import com.youngsquad.user.presentation.request.LoginRequest;
+import com.youngsquad.user.presentation.response.LoginResponse;
+import com.youngsquad.user.application.SocialLoginService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

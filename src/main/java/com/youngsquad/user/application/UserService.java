@@ -1,10 +1,10 @@
-package com.youngsquad.user.service;
+package com.youngsquad.user.application;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.Response.ResponseService;
-import com.youngsquad.user.domain.User;
-import com.youngsquad.user.domain.UserRepo;
-import com.youngsquad.user.dto.UserCreateRequest;
+import com.youngsquad.user.domain.model.User;
+import com.youngsquad.user.domain.service.UserRepository;
+import com.youngsquad.user.presentation.request.UserCreateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final ResponseService responseService;
-    private final UserRepo userRepo;
+    private final UserRepository userRepo;
     public CommonResult createUser(UserCreateRequest userCreateRequest) {
 
         return responseService.getSuccessResult();

@@ -1,7 +1,7 @@
-package com.youngsquad.user.dto;
+package com.youngsquad.user.presentation.response;
 
-import com.youngsquad.user.domain.User;
-import com.youngsquad.user.domain.UserStatus;
+import com.youngsquad.user.domain.model.User;
+import com.youngsquad.user.domain.model.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

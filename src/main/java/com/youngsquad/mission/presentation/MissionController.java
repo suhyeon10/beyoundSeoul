@@ -1,4 +1,4 @@
-package com.youngsquad.mission.controller;
+package com.youngsquad.mission.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;

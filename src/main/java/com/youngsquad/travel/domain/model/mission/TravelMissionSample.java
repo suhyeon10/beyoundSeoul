@@ -1,5 +1,7 @@
-package com.youngsquad.travel.domain.model;
+package com.youngsquad.travel.domain.model.mission;
 
+import com.youngsquad.travel.domain.model.TravelThemeDestination;
+import com.youngsquad.travel.domain.model.mission.MissionCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,9 +20,8 @@ public class TravelMissionSample {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TRAVEL_MISSION_SAMPLE_ID")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name= "TRAVEL_THEME_DESTINATION_ID")
-    private TravelThemeDestination travelThemeDestination;
+    @Column(name= "TRAVEL_MISSION_DESTINATION")
+    private String travelMissionDestination;
     @Column(name = "TEAM_MISSION_CATEGORY")
     @Enumerated(EnumType.STRING)
     private MissionCategory missionCategory;

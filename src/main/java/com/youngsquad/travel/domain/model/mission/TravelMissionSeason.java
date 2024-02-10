@@ -1,4 +1,4 @@
-package com.youngsquad.travel.domain.model;
+package com.youngsquad.travel.domain.model.mission;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

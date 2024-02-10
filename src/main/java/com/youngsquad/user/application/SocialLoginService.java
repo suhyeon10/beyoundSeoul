@@ -1,8 +1,12 @@
-package com.youngsquad.user.service;
+package com.youngsquad.user.application;
 
 import com.youngsquad.common.s3.S3Service;
-import com.youngsquad.user.domain.*;
-import com.youngsquad.user.dto.LoginResponse;
+import com.youngsquad.user.domain.model.SocialLogin;
+import com.youngsquad.user.domain.model.User;
+import com.youngsquad.user.domain.model.UserStatus;
+import com.youngsquad.user.domain.service.SocialLoginRepository;
+import com.youngsquad.user.domain.service.UserRepository;
+import com.youngsquad.user.presentation.response.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,8 +20,8 @@ import java.time.LocalDateTime;
 @Slf4j
 @RequiredArgsConstructor
 public class SocialLoginService {
-    private final UserRepo userRepo;
-    private final SocialLoginRepo socialLoginRepo;
+    private final UserRepository userRepo;
+    private final SocialLoginRepository socialLoginRepo;
     private final S3Service s3Service;
     private static final String DEFAULT_IMAGE_ROUTE = "basic/profile_basic.png";
 

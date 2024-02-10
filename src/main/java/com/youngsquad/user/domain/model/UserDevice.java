@@ -1,4 +1,4 @@
-package com.youngsquad.user.domain;
+package com.youngsquad.user.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

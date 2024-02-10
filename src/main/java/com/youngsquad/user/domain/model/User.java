@@ -1,4 +1,4 @@
-package com.youngsquad.user.domain;
+package com.youngsquad.user.domain.model;
 
 import lombok.*;
 

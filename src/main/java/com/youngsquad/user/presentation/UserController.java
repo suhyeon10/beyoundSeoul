@@ -1,16 +1,13 @@
-package com.youngsquad.user.controller;
+package com.youngsquad.user.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
-import com.youngsquad.user.dto.LoginRequest;
-import com.youngsquad.user.dto.UserCreateRequest;
-import com.youngsquad.user.service.UserService;
+import com.youngsquad.user.presentation.request.UserCreateRequest;
+import com.youngsquad.user.application.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @Slf4j
 @RestController

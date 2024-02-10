@@ -4,10 +4,10 @@
 //import com.youngsquad.common.exception.BusinessException;
 //import com.youngsquad.common.exception.ErrorCode;
 //import com.youngsquad.travel.domain.*;
-//import com.youngsquad.user.domain.SocialLogin;
-//import com.youngsquad.user.domain.SocialLoginRepo;
-//import com.youngsquad.user.domain.User;
-//import com.youngsquad.user.domain.UserRepo;
+//import com.youngsquad.user.domain.model.SocialLogin;
+//import com.youngsquad.user.domain.service.SocialLoginRepo;
+//import com.youngsquad.user.domain.model.User;
+//import com.youngsquad.user.domain.service.UserRepo;
 //import org.junit.jupiter.api.Assertions;
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;

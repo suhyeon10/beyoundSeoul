@@ -1,4 +1,4 @@
-package com.youngsquad.user.dto;
+package com.youngsquad.user.presentation.request;
 
 
 import org.springframework.web.multipart.MultipartFile;

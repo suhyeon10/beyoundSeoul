@@ -1,4 +1,4 @@
-package com.youngsquad.mission.controller;
+package com.youngsquad.mission.presentation;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.youngsquad.common.Response.CommonResult;

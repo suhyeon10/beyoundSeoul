@@ -2,8 +2,8 @@ package com.youngsquad.travel.application;
 
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.travel.presentation.response.HomeResponse;
-import com.youngsquad.user.domain.User;
-import com.youngsquad.user.service.UserService;
+import com.youngsquad.user.domain.model.User;
+import com.youngsquad.user.application.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
