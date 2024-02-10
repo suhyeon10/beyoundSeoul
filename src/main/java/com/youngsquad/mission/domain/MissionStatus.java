@@ -25,6 +25,16 @@ public class MissionStatus {
     @Column(name = "MISSION_STATUS")
     @Enumerated(EnumType.STRING)
     private MissionStatusType missionStatusType;
+    @Column(name = "CREATE_DATE")
+    private LocalDateTime createDate;
     @Column(name = "MODIFY_DATE")
     private LocalDateTime modifyDate;
+
+    public static MissionStatus makeEntity(Mission mission){
+        return MissionStatus.builder()
+                .mission(mission)
+                .missionStatusType(MissionStatusType.ONGOING)
+                .createDate(LocalDateTime.now())
+                .build();
+    }
 }

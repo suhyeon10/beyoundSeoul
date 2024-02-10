@@ -7,7 +7,7 @@ import com.youngsquad.travel.application.TravelService;
 import com.youngsquad.travel.domain.model.Travel;
 import com.youngsquad.travel.domain.model.TravelMateCode;
 import com.youngsquad.travel.presentation.response.ViewMateCodeResponse;
-import com.youngsquad.user.domain.User;
+import com.youngsquad.user.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -17,11 +17,11 @@ public class OnboardRequest {
     private String lang;
     private String travelWith;
     private String role;
+    private String sex;
     private int uid;
 
     private LocalDate travelStartDate;
     private LocalDate travelEndDate;
-    private String transport;
     private int themaId;
     private String destination;
 }

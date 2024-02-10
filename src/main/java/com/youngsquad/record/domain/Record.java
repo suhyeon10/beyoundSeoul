@@ -1,7 +1,7 @@
 package com.youngsquad.record.domain;
 
 import com.youngsquad.mission.domain.Mission;
-import com.youngsquad.user.domain.User;
+import com.youngsquad.user.domain.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

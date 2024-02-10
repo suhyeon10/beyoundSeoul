@@ -2,7 +2,11 @@ package com.youngsquad.user;
 
 
 import com.youngsquad.common.s3.S3Service;
-import com.youngsquad.user.domain.*;
+import com.youngsquad.user.domain.model.SocialLogin;
+import com.youngsquad.user.domain.model.User;
+import com.youngsquad.user.domain.model.UserStatus;
+import com.youngsquad.user.domain.service.SocialLoginRepository;
+import com.youngsquad.user.domain.service.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,9 +28,9 @@ import java.time.LocalDateTime;
 public class SocialLoginServiceTest {
 
     @Autowired
-    private SocialLoginRepo socialLoginRepo;
+    private SocialLoginRepository socialLoginRepo;
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepo;
     @MockBean
     private S3Service s3Service;
 
