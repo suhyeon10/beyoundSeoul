@@ -18,4 +18,9 @@ public class TravelParticipateService {
         TravelParticipate travelParticipate = TravelParticipate.from(user, travelDetail, TeamMemberRole.MEMBER);
         travelParticipateRepository.save(travelParticipate);
     }
+
+    public void saveTeamMissionReader(Travel travelDetail, User user) {
+        TravelParticipate travelParticipate = TravelParticipate.from(user, travelDetail, TeamMemberRole.READER);
+        travelParticipateRepository.save(travelParticipate);
+    }
 }

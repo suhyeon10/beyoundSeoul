@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -28,12 +29,15 @@ public class TravelParticipate {
     @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
     private TeamMemberRole teamMemberRole;
+    @Column(name = "CREATE_DATE")
+    private LocalDateTime createDate;
 
     public static TravelParticipate from(User user, Travel travel, TeamMemberRole teamMemberRole){
         return TravelParticipate.builder()
                 .teamMember(user)
                 .travel(travel)
                 .teamMemberRole(teamMemberRole)
+                .createDate(LocalDateTime.now())
                 .build();
 
     }

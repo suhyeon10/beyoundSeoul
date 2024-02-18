@@ -3,7 +3,7 @@ package com.youngsquad.travel.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
-import com.youngsquad.travel.application.OnboardService;
+import com.youngsquad.travel.application.onboard.OnboardService;
 import com.youngsquad.travel.presentation.request.OnboardRequest;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -38,6 +39,7 @@ public class Travel {
     private TravelWithType travelWith;
     @Column(name = "TITLE")
     private String title;
+    private LocalDateTime createAt;
 
     public static Travel makeEntity(String destination, LocalDate endDate, LocalDate startDate, long uid, TravelWithType travelWith, String title, long themeId){
         return Travel.builder()
@@ -48,6 +50,7 @@ public class Travel {
                 .travelWith(travelWith)
                 .title(title)
                 .travelTheme(themeId)
+                .createAt(LocalDateTime.now())
                 .build();
     }
 }
