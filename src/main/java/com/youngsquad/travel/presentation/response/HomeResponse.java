@@ -1,10 +1,15 @@
 package com.youngsquad.travel.presentation.response;
 
+import com.youngsquad.travel.application.home.HomeTravelReadService;
+import com.youngsquad.travel.domain.model.Travel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -12,76 +17,56 @@ import java.util.List;
 public class HomeResponse {
     private Profile profile;
     private String travelStatus;
-    private Travel travel;
-    private List<Reservation> reservations;
+    private TravelResponse travelResponse;
     private Mission mission;
+    private MissionStatus missionStatus;
 
     @Getter
     @Builder
-    public static class Profile{
+    public static class Profile {
         private String userName;
         private String userImage;
     }
+
     @Getter
     @Builder
-    public static class Travel{
-        private int travelId;
-        private String travelName;
+    public static class TravelResponse {
+        private long travelId;
+        private String travelTitle;
         private String travelDate;
-        private List<String> travelFreinds;
-
-    }
-    @Getter
-    @Builder
-    public static class Mission{
-        private MissionComplete missionComplete;
-        private TeamMission teamMission;
-        private PersonMission personMission;
-        private String dailyMissionCount;
-        private List<DailyMission> dailyMissions;
-
-        @Getter
-        @Builder
-        public static class MissionComplete{
-            private int team;
-            private int person;
-            private int daily;
-        }
-        @Getter
-        @Builder
-        public static class TeamMission{
-            private int id;
-            private String title;
-            private String detail;
-            private String address;
-        }
-
-        @Getter
-        @Builder
-        public static class PersonMission{
-            private int id;
-            private String title;
-            private String detail;
-            private String address;
-
-        }
-        @Getter
-        @Builder
-        public static class DailyMission{
-            private int id;
-            private String title;
-            private String status;
-        }
+        private List<String> travelFriends;
     }
 
     @Getter
     @Builder
-    public static class Reservation{
-        private String destination;
-        private String date;
-        private String time;
+    public static class Mission {
+        private String foodMission;
+        private String tourMission;
+        private String sosoMission;
     }
 
+    @Getter
+    @Builder
+    public static class MissionStatus {
+        private String foodMissionStatus;
+        private String tourMissionStatus;
+        private String sosoMissionStatus;
+    }
 
+    public static TravelResponse makeTravelResponse(Travel travel, HomeTravelReadService homeTravelReadService) {
+        List<String> travelFriendImages = homeTravelReadService.getTravelMemberImageList(travel);
+        return TravelResponse.builder()
+                .travelId(travel.getId())
+                .travelTitle(travel.getTitle())
+                .travelDate(formatDateRange(travel.getStartDate(), travel.getEndDate()))
+                .travelFriends(travelFriendImages)
+                .build();
+    }
 
+    private static String formatDateRange(LocalDate startDate, LocalDate endDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMdd");
+        String formattedStartDate = startDate.format(formatter);
+        String formattedEndDate = endDate.format(formatter);
+        return formattedStartDate + " ~ " + formattedEndDate;
+    }
 }

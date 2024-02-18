@@ -2,7 +2,7 @@ package com.youngsquad.travel.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
-import com.youngsquad.travel.application.HomeService;
+import com.youngsquad.travel.application.home.HomeService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

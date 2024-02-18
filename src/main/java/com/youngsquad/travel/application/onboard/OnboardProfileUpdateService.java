@@ -1,4 +1,4 @@
-package com.youngsquad.travel.application;
+package com.youngsquad.travel.application.onboard;
 
 import com.youngsquad.travel.presentation.request.OnboardRequest;
 import com.youngsquad.user.domain.model.User;
