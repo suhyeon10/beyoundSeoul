@@ -2,7 +2,7 @@ package com.youngsquad.travel.presentation;
 
 import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
-import com.youngsquad.travel.application.home.HomeService;
+import com.youngsquad.travel.application.home.HomeViewService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/home")
 @RequiredArgsConstructor
-public class HomeController extends BaseController {
+public class HomeViewController extends BaseController {
 
-    private final HomeService homeService;
+    private final HomeViewService homeViewService;
 
     @ApiOperation(
             value = "홈페이지 뷰 데이터 조회",
             notes = "홈페이지 뷰 데이터 조회"
     )    @GetMapping(path = "/view")
     public CommonResult viewHome(@RequestParam long uid) {
-        return result(homeService.viewHome(uid));
+        return result(homeViewService.viewHome(uid));
     }
 }

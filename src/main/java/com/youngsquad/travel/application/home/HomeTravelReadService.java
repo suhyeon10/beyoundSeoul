@@ -3,8 +3,9 @@ package com.youngsquad.travel.application.home;
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.travel.domain.model.Travel;
 import com.youngsquad.travel.domain.model.TravelParticipate;
+import com.youngsquad.travel.domain.service.HomeProfileRepositoryImpl;
 import com.youngsquad.travel.domain.service.TravelParticipateRepository;
-import com.youngsquad.travel.presentation.response.HomeResponse;
+import com.youngsquad.travel.presentation.response.HomeViewResponse;
 import com.youngsquad.user.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,18 +18,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class HomeTravelReadService {
     private final TravelParticipateRepository travelParticipateRepository;
+    private final HomeProfileRepositoryImpl homeProfileRepository;
     private final S3Service s3Service;
 
-    public HomeResponse.TravelResponse makeResponse(Travel travel) {
-        return HomeResponse.makeTravelResponse(travel, this);
-    }
 
     public Travel getUserTravel(User user) {
-        return travelParticipateRepository.findByTeamMemberOrderByCreateDateDesc(user)
-                .stream()
-                .map(TravelParticipate::getTravel)
-                .filter(travel -> isBetweenDates(LocalDate.now(), travel.getStartDate(), travel.getEndDate()))
-                .findFirst().get();
+        return homeProfileRepository.findLatestTravelByUserId(user.getId());
+//        return travelParticipateRepository.findByTeamMemberOrderByCreateDateDesc(user)
+//                .stream()
+//                .map(TravelParticipate::getTravel)
+//                .filter(travel -> isBetweenDates(LocalDate.now(), travel.getStartDate(), travel.getEndDate()))
+//                .findFirst().get();
     }
 
     private boolean isBetweenDates(LocalDate date, LocalDate startDate, LocalDate endDate) {
@@ -39,12 +39,14 @@ public class HomeTravelReadService {
         return s3Service.getDownloadPresignedURL(user.getImage());
     }
 
-    public List<String> getTravelMemberImageList(Travel travel) {
+    public List<String> getTravelMemberImageList(Travel travel, User user) {
         List<User> users = getTravelUsers(travel);
         return users.stream()
+                .filter(u -> !u.equals(user))
                 .map(this::getTravelMemberImage)
                 .collect(Collectors.toList());
     }
+
 
     public List<User> getTravelUsers(Travel travel) {
         return travelParticipateRepository.findByTravel(travel)
