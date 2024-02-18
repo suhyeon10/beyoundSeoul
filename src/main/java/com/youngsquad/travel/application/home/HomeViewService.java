@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -24,16 +23,22 @@ public class HomeViewService {
     private final HomeTravelReadService homeTravelReadService;
     private final HomeMissionStatusRepository homeMissionStatusRepository;
 
-    public HomeViewResponse viewHome(long userId){
+
+    public HomeViewResponse viewHome(long userId) {
         // 0) 유저 프로필 정보 (항상)
         User user = userService.findUser(userId);
         Travel travel = homeTravelReadService.getUserTravel(user);
+
+        if (travel == null) {
+            return buildEmptyHomeViewResponse(user);
+        }
 
         // 1) 미션 진행 현황 조회
         List<Tuple> missionCounts = homeMissionStatusRepository.countMissionsByStatus(travel);
 
         // 2) 진행 중인 미션 내용 조회
         List<Mission> ongoingMissions = homeMissionStatusRepository.findOngoingMissionTitleAndId(travel);
+
         // 3) 여행 친구 이미지 조회
         List<String> travelFriendImages = homeTravelReadService.getTravelMemberImageList(travel, user);
 
@@ -42,22 +47,44 @@ public class HomeViewService {
         int tourMissionCount = getMissionCount(missionCounts, "TOUR");
         int sosoMissionCount = getMissionCount(missionCounts, "SOSO");
 
+        return buildHomeViewResponse(user, travel, ongoingMissions, travelFriendImages, foodMissionCount, tourMissionCount, sosoMissionCount);
+    }
+
+    private HomeViewResponse buildEmptyHomeViewResponse(User user) {
         return HomeViewResponse.builder()
-                .profile(ofProfile(user))
-                .travel(HomeViewResponse.makeTravelResponse(travel, travelFriendImages))
-                .ongoingMission(HomeViewResponse.fromMission(ongoingMissions))
-                .missionCount(ofMissionCount(foodMissionCount, tourMissionCount, sosoMissionCount))
+                .profile(buildProfile(user))
+                .travel(null)
+                .ongoingMission(null)
+                .missionCount(null)
                 .build();
     }
 
-    private HomeViewResponse.Profile ofProfile(User user){
+    private HomeViewResponse buildHomeViewResponse(User user, Travel travel, List<Mission> ongoingMissions,
+                                                   List<String> travelFriendImages, int foodMissionCount, int tourMissionCount, int sosoMissionCount) {
+        return HomeViewResponse.builder()
+                .profile(buildProfile(user))
+                .travel(buildTravelResponse(travel, travelFriendImages))
+                .ongoingMission(buildOngoingMission(ongoingMissions))
+                .missionCount(buildMissionCount(foodMissionCount, tourMissionCount, sosoMissionCount))
+                .build();
+    }
+
+    private HomeViewResponse.Profile buildProfile(User user) {
         return HomeViewResponse.Profile.builder()
-                .userName(user.getNickName())
-                .userImage(s3Service.getDownloadPresignedURL(user.getImage()))
+                .userName(user != null ? user.getNickName() : null)
+                .userImage(user != null ? s3Service.getDownloadPresignedURL(user.getImage()) : null)
                 .build();
     }
 
-    private HomeViewResponse.MissionCount ofMissionCount(int foodMissionCount, int tourMissionCount, int sosoMissionCount) {
+    private HomeViewResponse.TravelResponse buildTravelResponse(Travel travel, List<String> travelFriendImages) {
+        return travel != null ? HomeViewResponse.makeTravelResponse(travel, travelFriendImages) : null;
+    }
+
+    private HomeViewResponse.OngoingMission buildOngoingMission(List<Mission> ongoingMissions) {
+        return ongoingMissions != null ? HomeViewResponse.fromMission(ongoingMissions) : null;
+    }
+
+    private HomeViewResponse.MissionCount buildMissionCount(int foodMissionCount, int tourMissionCount, int sosoMissionCount) {
         return HomeViewResponse.MissionCount.builder()
                 .foodMissionCount(foodMissionCount)
                 .tourMissionCount(tourMissionCount)
