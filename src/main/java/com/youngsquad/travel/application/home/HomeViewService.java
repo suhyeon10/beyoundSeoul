@@ -4,7 +4,7 @@ import com.querydsl.core.Tuple;
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.mission.domain.Mission;
 import com.youngsquad.travel.domain.model.Travel;
-import com.youngsquad.travel.domain.service.HomeMissionStatusRepository;
+import com.youngsquad.travel.domain.service.home.HomeMissionStatusRepository;
 import com.youngsquad.travel.presentation.response.HomeViewResponse;
 import com.youngsquad.user.domain.model.User;
 import com.youngsquad.user.application.UserService;
