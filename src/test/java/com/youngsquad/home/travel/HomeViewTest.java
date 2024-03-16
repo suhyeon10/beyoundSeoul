@@ -2,7 +2,7 @@ package com.youngsquad.home.travel;
 
 import com.youngsquad.travel.domain.model.Travel;
 import com.youngsquad.travel.domain.model.TravelParticipate;
-import com.youngsquad.travel.domain.service.HomeProfileRepositoryImpl;
+import com.youngsquad.travel.domain.service.home.HomeProfileRepository;
 import com.youngsquad.travel.domain.service.TravelParticipateRepository;
 import com.youngsquad.travel.domain.service.TravelRepository;
 import com.youngsquad.user.domain.model.User;
@@ -14,13 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @DataJpaTest
 @DisplayName("홈 페이지의 데이터를 조회하는 테스트")
 public class HomeViewTest {
     @Autowired(required = false)
-    private HomeProfileRepositoryImpl homeProfileRepository;
+    private HomeProfileRepository homeProfileRepository;
     @Autowired
     private TravelRepository travelRepository;
     @Autowired

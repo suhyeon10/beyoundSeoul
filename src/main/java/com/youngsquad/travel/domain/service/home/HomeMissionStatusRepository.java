@@ -1,4 +1,4 @@
-package com.youngsquad.travel.domain.service;
+package com.youngsquad.travel.domain.service.home;
 
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;

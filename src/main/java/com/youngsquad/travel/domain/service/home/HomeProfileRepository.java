@@ -1,4 +1,4 @@
-package com.youngsquad.travel.domain.service;
+package com.youngsquad.travel.domain.service.home;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.youngsquad.travel.domain.model.Travel;
@@ -8,14 +8,13 @@ import static com.youngsquad.travel.domain.model.QTravel.travel;
 import static com.youngsquad.travel.domain.model.QTravelParticipate.travelParticipate;
 
 @Repository
-public class HomeProfileRepositoryImpl implements HomeProfileRepository{
+public class HomeProfileRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public HomeProfileRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
+    public HomeProfileRepository(JPAQueryFactory jpaQueryFactory) {
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
-    @Override
     public Travel findLatestTravelByUserId(Long userId) {
         return jpaQueryFactory
                 .selectFrom(travel)

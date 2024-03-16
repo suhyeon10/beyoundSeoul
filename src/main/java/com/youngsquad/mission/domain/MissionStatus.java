@@ -37,4 +37,7 @@ public class MissionStatus {
                 .createDate(LocalDateTime.now())
                 .build();
     }
+    public void stop(){
+        this.missionStatusType = MissionStatusType.STOP;
+    }
 }
