@@ -10,12 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class CreateRecordRequest {
     private long uid;
-    private int missionId;
-    private String missionType;
+    private long missionId;
     private MultipartFile recordImage;
     private String recordComment;
-    private int travelId;
-
-
-
 }
