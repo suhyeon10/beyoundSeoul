@@ -1,5 +1,6 @@
 package com.youngsquad.travel.domain.model;
 
+import com.youngsquad.mission.domain.Mission;
 import com.youngsquad.travel.presentation.request.OnboardRequest;
 import com.youngsquad.user.domain.model.User;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,6 +42,7 @@ public class Travel {
     @Column(name = "TITLE")
     private String title;
     private LocalDateTime createAt;
+
 
     public static Travel makeEntity(String destination, LocalDate endDate, LocalDate startDate, long uid, TravelWithType travelWith, String title, long themeId){
         return Travel.builder()

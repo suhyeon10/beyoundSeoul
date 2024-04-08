@@ -1,6 +1,7 @@
 package com.youngsquad.record.domain;
 
 import com.youngsquad.mission.domain.Mission;
+import com.youngsquad.travel.domain.model.Travel;
 import com.youngsquad.user.domain.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,9 @@ public class Record {
     @JoinColumn(name="recorder_id")
     private User recorder;
     @ManyToOne
+    @JoinColumn(name="travel_id")
+    private Travel travel;
+    @ManyToOne
     @JoinColumn(name = "MISSION_ID")
     private Mission mission;
     @Column(name = "IMAGE")
@@ -37,4 +41,15 @@ public class Record {
     private LocalDateTime modifyDate;
     @Column(name = "DELETE_DATE")
     private LocalDateTime deleteDate;
+
+    public static Record makeEntity(String content, String image, Mission mission, User recorder){
+        return Record.builder()
+                .createDate(LocalDateTime.now())
+                .travel(mission.getTravel())
+                .content(content)
+                .image(image)
+                .mission(mission)
+                .recorder(recorder)
+                .build();
+    }
 }
