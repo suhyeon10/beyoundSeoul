@@ -34,7 +34,11 @@ public class S3Service {
 
     public String upload(MultipartFile uploadFile, String folderName) throws IOException {
         String imageType = getImageType(uploadFile);
-        if (imageType == null) return null;
+        if (imageType == null) {
+            System.out.println("파일이널");
+            return null;
+        }
+
 
         log.info("upload folderName :: "+folderName);
         String originName = uploadFile.getOriginalFilename();
@@ -60,12 +64,17 @@ public class S3Service {
     }
     private String getImageType(MultipartFile image) {
         if(image == null || image.getContentType() == null || !image.getContentType().startsWith("image")) return null;
-        Matcher matcher = Pattern.compile(REGEX).matcher(image.getOriginalFilename());
-        if(!matcher.matches()) return null;
 
-        String imageType = matcher.group(1);
-        if(!IMAGE_TYPE.contains(imageType)) return null;
-        return imageType;
+        String originalFilename = image.getOriginalFilename();
+        if(originalFilename == null) return null;
+
+        int dotIndex = originalFilename.lastIndexOf(".");
+        if(dotIndex == -1) return null;
+
+        String extension = originalFilename.substring(dotIndex + 1).toLowerCase();
+        if(!IMAGE_TYPE.contains(extension)) return null;
+
+        return extension;
     }
 
 

@@ -46,4 +46,14 @@ public class RecordController extends BaseController {
 
         return result(recordReadService.getRecordsByTravel(travelId, cursorId, uid, size));
     }
+
+    @ApiOperation(
+            value = "기록 피드 조회",
+            notes = "기록피드의 여행이름 조회"
+    )    @PostMapping(path = "/travelName")
+    public CommonResult viewRecordByTravelId(@RequestParam long uid) throws IOException {
+
+        return result(recordReadService.getTravelNameFromRecord( uid));
+    }
+
 }
