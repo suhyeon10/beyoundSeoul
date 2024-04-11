@@ -26,9 +26,6 @@ public class Record {
     @JoinColumn(name="recorder_id")
     private User recorder;
     @ManyToOne
-    @JoinColumn(name="travel_id")
-    private Travel travel;
-    @ManyToOne
     @JoinColumn(name = "MISSION_ID")
     private Mission mission;
     @Column(name = "IMAGE")
@@ -45,7 +42,6 @@ public class Record {
     public static Record makeEntity(String content, String image, Mission mission, User recorder){
         return Record.builder()
                 .createDate(LocalDateTime.now())
-                .travel(mission.getTravel())
                 .content(content)
                 .image(image)
                 .mission(mission)

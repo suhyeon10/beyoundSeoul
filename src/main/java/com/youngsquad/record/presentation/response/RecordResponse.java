@@ -1,5 +1,6 @@
 package com.youngsquad.record.presentation.response;
 
+import com.youngsquad.record.application.RecordReadService;
 import com.youngsquad.record.domain.Record;
 import com.youngsquad.travel.domain.model.Travel;
 import lombok.AllArgsConstructor;
@@ -14,29 +15,26 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecordResponse {
+
     private String image;
     private LocalDateTime uploadAt;
     private String comment;
     private String missionType;
     private String missionTitle;
-    private List<TravelNameResponse> travelNameResponseList;
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class TravelNameResponse {
-        private String title;
-        private long id;
-    }
 
-    public static RecordResponse from(Record record, List<Travel> travels) {
+
+    public static RecordResponse fromRecordList(Record record, RecordReadService recordReadService) {
         return new RecordResponse(
-                record.getImage(),
+                recordReadService.getRecordImageURL(record.getImage()),
                 record.getCreateDate(),
                 record.getContent(),
                 record.getMission().getTravelMissionSample().getMissionCategory().getName(),
-                record.getMission().getTravelMissionSample().getTitle(),
-                travels.stream().map(travel -> new TravelNameResponse(travel.getTitle(), travel.getId())).collect(Collectors.toList())
+                record.getMission().getTravelMissionSample().getTitle()
         );
     }
+
+
+
+
 }
