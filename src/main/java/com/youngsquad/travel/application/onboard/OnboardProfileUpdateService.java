@@ -1,6 +1,7 @@
 package com.youngsquad.travel.application.onboard;
 
 import com.youngsquad.travel.presentation.request.OnboardRequest;
+import com.youngsquad.user.application.UserService;
 import com.youngsquad.user.domain.model.User;
 import com.youngsquad.user.domain.service.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,17 +13,15 @@ import java.time.format.DateTimeParseException;
 @Service
 @RequiredArgsConstructor
 public class OnboardProfileUpdateService {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public void updateProfile(long uid, String birth, String sex) {
-        User user = userRepository.findById(uid);
+    public void updateProfile(User user, String birth, String sex) {
 
         LocalDate parsedBirth = parseLocalDate(birth);
         String parsedSex = parseSex(sex);
 
         if (parsedBirth != null && parsedSex != null) {
-            user.updateUserProfile(parsedBirth, parsedSex);
-            userRepository.save(user);
+            userService.updateUser(user, parsedBirth, parsedSex);
         }
     }
 

@@ -6,6 +6,7 @@ import com.youngsquad.travel.domain.model.TravelRoleType;
 import com.youngsquad.travel.domain.model.TravelWithType;
 import com.youngsquad.travel.presentation.request.OnboardRequest;
 import com.youngsquad.travel.domain.service.TravelRepository;
+import com.youngsquad.user.application.UserService;
 import com.youngsquad.user.domain.model.User;
 import com.youngsquad.user.domain.service.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @RequiredArgsConstructor
 public class OnboardService {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     private final TravelRepository travelRepository;
     private final OnboardMissionService onboardMissionService;
@@ -29,9 +30,9 @@ public class OnboardService {
 
     @Transactional
     public void completeOnboard(OnboardRequest onboardRequest){
-        User user = userRepository.findById(onboardRequest.getUid());
+        User user = userService.findUser(onboardRequest.getUid());
         // 0) 프로필 업데이트
-        onboardProfileUpdateService.updateProfile(onboardRequest.getUid(),
+        onboardProfileUpdateService.updateProfile(user,
                 onboardRequest.getBirth(),
                 onboardRequest.getSex());
 

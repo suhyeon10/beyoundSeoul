@@ -30,6 +30,11 @@ public class LoginController extends BaseController {
             notes = "이메일을 입력해서 로그인, 회원 데이터가 없으면 생성"
     )    @PostMapping(path = "/login")
     public CommonResult login( LoginRequest loginRequest) throws IOException {
+        log.info("email : "+loginRequest.email());
+        log.info("nickName : "+loginRequest.nickName());
+        log.info("image : "+loginRequest.image());
+        log.info("idToken : "+loginRequest.idToken());
+        log.info("sns : "+loginRequest.sns());
         LoginResponse loginResponse = socialLoginService.login(loginRequest.email(),
                 loginRequest.nickName(),
                 loginRequest.image(),

@@ -1,5 +1,7 @@
 package com.youngsquad.user.application;
 
+import com.youngsquad.common.exception.BusinessException;
+import com.youngsquad.common.exception.ErrorCode;
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.user.domain.model.SocialLogin;
 import com.youngsquad.user.domain.model.User;
@@ -22,8 +24,7 @@ import java.time.LocalDateTime;
 public class SocialLoginService {
     private final UserRepository userRepo;
     private final SocialLoginRepository socialLoginRepo;
-    private final S3Service s3Service;
-    private static final String DEFAULT_IMAGE_ROUTE = "basic/profile_basic.png";
+    private final UserService userService;
 
     @Transactional
     public LoginResponse login(String email, String nickName, MultipartFile image, String idToken, String sns) throws IOException {
@@ -37,8 +38,11 @@ public class SocialLoginService {
     }
 
     public User createUser(String email, String nickName, MultipartFile image, String idToken, String sns) throws IOException {
+
+
         UserStatus userStatus = UserStatus.CERTIFICATION;
-        String imageRoute = (image != null) ? uploadProfileImage(image) : getDefaultImageRoute();
+        if(idToken.isEmpty() || sns.isEmpty()) throw new BusinessException(ErrorCode.USER_ID_TOKEN_NOT_FOUND);
+        String imageRoute = userService.uploadProfileImage(image);
 
         User user = User.builder()
                 .email(email)
@@ -58,13 +62,6 @@ public class SocialLoginService {
                 .build();
         socialLoginRepo.save(socialLogin);
         return user;
-    }
-    public String uploadProfileImage(MultipartFile profileImage) throws IOException {
-        return s3Service.upload(profileImage, "profile/");
-    }
-
-    private String getDefaultImageRoute() {
-        return DEFAULT_IMAGE_ROUTE;  // 실제로 사용할 기본 이미지 경로로 대체되어야 합니다.
     }
 
 }
