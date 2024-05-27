@@ -1,14 +1,13 @@
 package com.youngsquad.record.domain;
 
 import com.youngsquad.mission.domain.Mission;
-import com.youngsquad.travel.domain.model.Travel;
 import com.youngsquad.user.domain.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
