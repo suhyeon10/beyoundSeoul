@@ -24,14 +24,14 @@ public class LoginResponse {
     private LocalDateTime createDate;
     private String registerYN;
 
-    public static LoginResponse makeResponse(User user, String registerYN){
+    public static LoginResponse makeResponse(User user, String imageURL, String registerYN){
         return LoginResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .sex(user.getSex())
                 .nickName(user.getNickName())
                 .birth(user.getBirth())
-                .image(user.getImage())
+                .image(imageURL)
                 .status(user.getStatus())
                 .createDate(user.getCreateDate())
                 .registerYN(registerYN)

@@ -24,13 +24,13 @@ public class RecordCreateService {
     private final RecordRepository recordRepository;
     private final UserService userService;
     private final S3Service s3Service;
-    public void create(CreateRecordRequest createRecordRequest) throws IOException {
-        Mission mission = missionRepository.findById(createRecordRequest.getMissionId())
+    public void create(long missionId, long uid, String recordComment, MultipartFile recordImage) throws IOException {
+        Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(()-> new BusinessException(ErrorCode.MISSION_NOT_FOUND));
 
-        User user = userService.findUser(createRecordRequest.getUid());
-        Record record = Record.makeEntity(createRecordRequest.getRecordComment(),
-                uploadRecordImage(createRecordRequest.getRecordImage()),
+        User user = userService.findUser(uid);
+        Record record = Record.makeEntity(recordComment,
+                uploadRecordImage(recordImage),
                 mission,
                 user);
         recordRepository.save(record);

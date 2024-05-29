@@ -6,13 +6,13 @@ import org.hibernate.annotations.DynamicUpdate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@DynamicUpdate
 @Table(name = "users")
 public class User {
 
@@ -28,6 +28,7 @@ public class User {
     private UserStatus status;
     private LocalDateTime createDate;
 
+
     public void updateUserProfile(LocalDate birth, String sex, String nickname, String image){
         this.birth = (birth!=null) ? birth : this.birth;
         this.sex = (sex!=null) ? sex : this.sex;
@@ -36,8 +37,8 @@ public class User {
     }
     public void updateUserProfile(LocalDate birth, String sex) {
         // 유저 정보 업데이트 로직
-        this.birth = birth;
-        this.sex = sex;
+        this.birth = (birth!=null) ? birth : this.birth;
+        this.sex = (sex!=null) ? sex : this.sex;
     }
 
 }

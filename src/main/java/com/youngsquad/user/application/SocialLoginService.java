@@ -25,23 +25,27 @@ public class SocialLoginService {
     private final UserRepository userRepo;
     private final SocialLoginRepository socialLoginRepo;
     private final UserService userService;
+    private final S3Service s3Service;
 
     @Transactional
     public LoginResponse login(String email, String nickName, MultipartFile image, String idToken, String sns) throws IOException {
+        if(email ==null || idToken==null || sns==null) throw new BusinessException(ErrorCode.USER_ID_TOKEN_NOT_FOUND);
+
         String registerYN = "N";
         User user = userRepo.findByEmail(email).orElse(null);
         if(user == null) {
             user = createUser(email, nickName, image, idToken, sns);
+        }else{
             registerYN = "Y";
         }
-        return LoginResponse.makeResponse(user, registerYN);
+        String imageURL = s3Service.getDownloadPresignedURL(user.getImage());
+        return LoginResponse.makeResponse(user, imageURL, registerYN);
     }
 
     public User createUser(String email, String nickName, MultipartFile image, String idToken, String sns) throws IOException {
 
 
         UserStatus userStatus = UserStatus.CERTIFICATION;
-        if(idToken.isEmpty() || sns.isEmpty()) throw new BusinessException(ErrorCode.USER_ID_TOKEN_NOT_FOUND);
         String imageRoute = userService.uploadProfileImage(image);
 
         User user = User.builder()

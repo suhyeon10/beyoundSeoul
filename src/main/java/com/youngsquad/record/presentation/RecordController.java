@@ -26,8 +26,13 @@ public class RecordController extends BaseController {
             notes = "미션 기록 생성하기"
     )
     @PostMapping(path = "/create")
-    public CommonResult createRecord(@RequestBody CreateRecordRequest request) throws IOException {
-        recordCreateService.create(request);
+    public CommonResult createRecord(CreateRecordRequest request) throws IOException {
+        recordCreateService.create(
+                request.missionId(),
+                request.uid(),
+                request.recordComment(),
+                request.recordImage()
+        );
         return success();
     }
 

@@ -30,6 +30,7 @@ public class OnboardService {
 
     @Transactional
     public void completeOnboard(OnboardRequest onboardRequest){
+        log.info("uid :: "+onboardRequest.getUid());
         User user = userService.findUser(onboardRequest.getUid());
         // 0) 프로필 업데이트
         onboardProfileUpdateService.updateProfile(user,
