@@ -12,6 +12,7 @@ import com.youngsquad.travel.domain.service.mission.MissionStatusRepository;
 import com.youngsquad.travel.domain.service.mission.TravelMissionSampleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,33 +23,22 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MissionRefreshService {
     private final MissionRepository missionRepository;
-    private final MissionStatusRepository missionStatusRepository;
+    private final MissionStatusFacade missionStatusFacade;
     private final TravelMissionSampleRepository travelMissionSampleRepository;
 
+    @Transactional
     public void missionRefresh(long missionId){
         //미션 상태 찾고 스탑으로 변경
         // 새로운 미션 할당
         Mission mission = missionRepository.findById(missionId).orElseThrow(() -> new BusinessException(ErrorCode.MISSION_NOT_FOUND));
-        stopMission(mission);
+        missionStatusFacade.stopMission(mission);
 
         Mission newMission = getRandomMission(mission.getTravel(),
                 mission.getTravelMissionSample().getMissionCategory(),
                 mission.getTravel().getDestination()).orElseThrow(()-> new BusinessException(ErrorCode.NOT_FOUND));
 
-        saveMissionStatus(newMission);
-    }
-
-
-    public void saveMissionStatus(Mission mission){
         missionRepository.save(mission);
-        MissionStatus missionStatus = MissionStatus.makeEntity(mission);
-        missionStatusRepository.save(missionStatus);
-    }
-
-    public void stopMission(Mission mission){
-        MissionStatus missionStatus = missionStatusRepository.findByMission(mission).orElseThrow(() -> new BusinessException(ErrorCode.MISSION_NOT_FOUND));
-        missionStatus.stop();
-        missionStatusRepository.save(missionStatus);
+        missionStatusFacade.saveMissionStatus(newMission);
     }
 
     public Optional<Mission> getRandomMission(Travel travel, MissionCategory missionCategory, String destination) {

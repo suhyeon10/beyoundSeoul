@@ -4,11 +4,11 @@ import com.youngsquad.common.Response.CommonResult;
 import com.youngsquad.common.controller.BaseController;
 import com.youngsquad.record.application.RecordCreateService;
 import com.youngsquad.record.application.RecordReadService;
-import com.youngsquad.record.presentation.request.CreateRecordRequest;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -26,12 +26,17 @@ public class RecordController extends BaseController {
             notes = "미션 기록 생성하기"
     )
     @PostMapping(path = "/create")
-    public CommonResult createRecord(CreateRecordRequest request) throws IOException {
+    public CommonResult createRecord(
+            @RequestParam(value="missionId") long missionId,
+            @RequestParam(value="uid") long uid,
+            @RequestParam(value="recordImage", required = false) MultipartFile recordImage,
+            @RequestParam(value="recordComment", required = false) String recordComment
+            ) throws IOException {
         recordCreateService.create(
-                request.missionId(),
-                request.uid(),
-                request.recordComment(),
-                request.recordImage()
+                missionId,
+                uid,
+                recordComment,
+                recordImage
         );
         return success();
     }

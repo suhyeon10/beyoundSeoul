@@ -23,7 +23,7 @@ public class HomeViewController extends BaseController {
             value = "홈페이지 뷰 데이터 조회",
             notes = "홈페이지 뷰 데이터 조회"
     )    @GetMapping(path = "/view")
-    public CommonResult viewHome(@RequestParam long uid) {
+    public CommonResult viewHome(@RequestParam(value="uid") long uid) {
         return result(homeViewService.viewHome(uid));
     }
 }

@@ -3,7 +3,9 @@ package com.youngsquad.travel.application.home;
 import com.querydsl.core.Tuple;
 import com.youngsquad.common.s3.S3Service;
 import com.youngsquad.mission.domain.Mission;
+import com.youngsquad.mission.domain.MissionStatusType;
 import com.youngsquad.travel.domain.model.Travel;
+import com.youngsquad.travel.domain.model.mission.MissionCategory;
 import com.youngsquad.travel.domain.service.home.HomeMissionStatusRepository;
 import com.youngsquad.travel.presentation.response.HomeViewResponse;
 import com.youngsquad.user.domain.model.User;
@@ -11,6 +13,7 @@ import com.youngsquad.user.application.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
@@ -24,14 +27,20 @@ public class HomeViewService {
     private final HomeMissionStatusRepository homeMissionStatusRepository;
 
 
+
+    @Transactional
     public HomeViewResponse viewHome(long userId) {
         // 0) 유저 프로필 정보 (항상)
         User user = userService.findUser(userId);
+
+
         Travel travel = homeTravelReadService.getUserTravel(user);
 
         if (travel == null) {
+            log.info(":::: 여행이 없음 ::::");
             return buildEmptyHomeViewResponse(user);
         }
+
 
         // 1) 미션 진행 현황 조회
         List<Tuple> missionCounts = homeMissionStatusRepository.countMissionsByStatus(travel);
@@ -43,9 +52,9 @@ public class HomeViewService {
         List<String> travelFriendImages = homeTravelReadService.getTravelMemberImageList(travel, user);
 
         // 4) 미션 수 카운트 조회
-        int foodMissionCount = getMissionCount(missionCounts, "FOOD");
-        int tourMissionCount = getMissionCount(missionCounts, "TOUR");
-        int sosoMissionCount = getMissionCount(missionCounts, "SOSO");
+        int foodMissionCount = getMissionCount(missionCounts, MissionCategory.FOOD);
+        int tourMissionCount = getMissionCount(missionCounts, MissionCategory.TOUR);
+        int sosoMissionCount = getMissionCount(missionCounts, MissionCategory.SOSO);
 
         return buildHomeViewResponse(user, travel, ongoingMissions, travelFriendImages, foodMissionCount, tourMissionCount, sosoMissionCount);
     }
@@ -92,14 +101,20 @@ public class HomeViewService {
                 .build();
     }
 
-    private int getMissionCount(List<Tuple> missionCounts, String missionType) {
+    private int getMissionCount(List<Tuple> missionCounts, MissionCategory missionCategory) {
         for (Tuple tuple : missionCounts) {
-            String type = tuple.get(0, String.class);
-            int count = tuple.get(1, Long.class).intValue();
-            if (type.equals(missionType)) {
-                return count;
+            MissionCategory type = tuple.get(0, MissionCategory.class); // 첫 번째 요소가 MissionCategory일 것으로 가정
+            MissionStatusType statusType = tuple.get(1, MissionStatusType.class); // 두 번째 요소가 MissionStatusType일 것으로 가정
+            Long count = tuple.get(2, Long.class); // 세 번째 요소가 Long count일 것으로 가정
+
+            log.info("튜플 : " + type + ", " + statusType + ", " + count);
+
+            // 타입이 일치하는지 확인
+            if (type.equals(missionCategory)) {
+                return count.intValue(); // Long을 int로 캐스팅
             }
         }
-        return 0; // 해당 미션 유형의 개수가 없을 경우
+        return 0; // 일치하는 미션 카테고리가 없는 경우 0 반환
     }
+
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MissionStatusRepository extends JpaRepository<MissionStatus, Long> {
-//    List<MissionStatus> findByMission(Mission mission);
     Optional<MissionStatus> findByMission(Mission mission);
 
 }

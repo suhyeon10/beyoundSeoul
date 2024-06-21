@@ -19,7 +19,7 @@ public class MissionStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MISSION_STATUS_ID")
     private Long id;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "MISSION_ID")
     private Mission mission;
     @Column(name = "MISSION_STATUS")
@@ -38,6 +38,12 @@ public class MissionStatus {
                 .build();
     }
     public void stop(){
+
         this.missionStatusType = MissionStatusType.STOP;
     }
+    public void end(){
+
+        this.missionStatusType = MissionStatusType.END;
+    }
+
 }
