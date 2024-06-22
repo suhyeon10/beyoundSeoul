@@ -39,7 +39,7 @@ public class MateCodeService {
     @Transactional
     public void registerTeamToTravel(User user, String code){
         TravelMateCode newTravelMateCode = travelMateCodeService.findLatestTravelMateCodeByCode(code);
-        if( newTravelMateCode ==null || isMateCodeExpire(newTravelMateCode)) throw new BusinessException(ErrorCode.NOT_FOUND);
+        if( newTravelMateCode ==null || isMateCodeExpire(newTravelMateCode)) throw new BusinessException(ErrorCode.MATE_CODE_NOT_VALUATED);
         else registerTeamMate(user, newTravelMateCode);
     }
 

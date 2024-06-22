@@ -21,7 +21,7 @@ public class MissionController extends BaseController{
             value = "미션 상세페이지 모달 데이터 조회",
             notes = "미션 상세페이지 데이터 조회"
     )    @GetMapping(path = "/detail")
-    public CommonResult detail(@RequestParam long missionId) {
+    public CommonResult detail(@RequestParam(value="missionId") long missionId) {
         MissionDetailResponse response = missionDetailService.readDetail(missionId);
         return result(response);
     }
@@ -30,7 +30,7 @@ public class MissionController extends BaseController{
             value = "미션 새로고침",
             notes = "미션 새로고침"
     )    @PostMapping(path = "/refresh")
-    public CommonResult refreshMission(@RequestParam long missionId) {
+    public CommonResult refreshMission(@RequestParam(value="missionId") long missionId) {
         missionRefreshService.missionRefresh(missionId);
         return success();
     }

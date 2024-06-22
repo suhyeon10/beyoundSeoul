@@ -21,7 +21,7 @@ public class TravelThemeDestinationReadController extends BaseController {
     @ApiOperation(
             value = "여행 테마별 여행지 조회 API"
     )    @GetMapping(path = "/destinations")
-    public CommonResult read(@RequestParam long themeId) {
+    public CommonResult read(@RequestParam(value="themeId") long themeId) {
         return result(travelThemeDestinationReadService.readTravelThemeDestination(themeId, travelThemeDestinationReadService));
     }
 }
